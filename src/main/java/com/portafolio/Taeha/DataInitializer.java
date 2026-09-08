@@ -6,6 +6,7 @@ import com.portafolio.Taeha.model.Usuario;
 import com.portafolio.Taeha.repository.PerfilRepository;
 import com.portafolio.Taeha.repository.SemanaRepository;
 import com.portafolio.Taeha.repository.UsuarioRepository;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,25 +24,35 @@ public class DataInitializer {
 
         return args -> {
 
-            if (usuarioRepository.findByUsuario("admin").isEmpty()) {
+            // ==========================================
+            // ADMINISTRADOR
+            // ==========================================
 
-                Usuario usuario = new Usuario();
+            Usuario usuario = usuarioRepository.findByUsuario("admin")
+                    .orElseGet(Usuario::new);
 
-                usuario.setUsuario("admin");
-                usuario.setPassword(
-                        passwordEncoder.encode("Admin123*")
-                );
-                usuario.setNombre("Antonio Prado H");
-                usuario.setRol("ADMIN");
-                usuario.setEstado(true);
+            usuario.setUsuario("admin");
 
-                usuarioRepository.save(usuario);
+            // CAMBIA AQUÍ TU NUEVA CONTRASEÑA
+            usuario.setPassword(
+                    passwordEncoder.encode("Zero123*")
+            );
 
-                System.out.println("=================================");
-                System.out.println("ADMINISTRADOR CREADO");
-                System.out.println("Usuario: admin");
-                System.out.println("=================================");
-            }
+            usuario.setNombre("Antonio Prado H");
+            usuario.setRol("ADMIN");
+            usuario.setEstado(true);
+
+            usuarioRepository.save(usuario);
+
+            System.out.println("=================================");
+            System.out.println("ADMINISTRADOR ACTUALIZADO");
+            System.out.println("Usuario: admin");
+            System.out.println("=================================");
+
+
+            // ==========================================
+            // PERFIL
+            // ==========================================
 
             Perfil perfil = perfilRepository.findAll()
                     .stream()
@@ -57,15 +68,19 @@ public class DataInitializer {
                 perfil.setNombre("Antonio");
                 perfil.setApellidos("PRADO H");
                 perfil.setCarrera("Diseño y Programación Web");
+
                 perfil.setDescripcion(
-                        "Estudiante de Diseño y Programación Web. Portafolio académico correspondiente a las 16 semanas de clase."
+                        "Estudiante de Diseño y Programación Web. " +
+                                "Portafolio académico correspondiente a las 16 semanas de clase."
                 );
 
                 if (perfil.getInstituto() == null
                         || perfil.getInstituto().isBlank()
                         || contieneDatoAnterior(perfil.getInstituto())) {
 
-                    perfil.setInstituto("Instituto de Educación Superior");
+                    perfil.setInstituto(
+                            "Instituto de Educación Superior"
+                    );
                 }
 
                 if (perfil.getSobreMi() == null
@@ -73,12 +88,19 @@ public class DataInitializer {
                         || contieneDatoAnterior(perfil.getSobreMi())) {
 
                     perfil.setSobreMi(
-                            "Soy Antonio Prado H, desarrollador AprHd. Me interesa construir soluciones web claras, profesionales y bien organizadas."
+                            "Soy Antonio Prado H, desarrollador AprHd. " +
+                                    "Me interesa construir soluciones web claras, " +
+                                    "profesionales y bien organizadas."
                     );
                 }
 
                 perfilRepository.save(perfil);
             }
+
+
+            // ==========================================
+            // SEMANAS
+            // ==========================================
 
             if (semanaRepository.count() == 0) {
 
@@ -88,6 +110,7 @@ public class DataInitializer {
 
                     semana.setNumero(i);
                     semana.setTitulo("Semana " + i);
+
                     semana.setDescripcion(
                             "Contenido académico de la semana " + i
                     );
@@ -101,6 +124,11 @@ public class DataInitializer {
             }
         };
     }
+
+
+    // ==========================================
+    // DETECTAR DATOS ANTERIORES
+    // ==========================================
 
     private boolean contieneDatoAnterior(String valor) {
 
@@ -120,13 +148,17 @@ public class DataInitializer {
         };
 
         for (int[] marcador : marcadores) {
-            if (texto.contains(textoDesdeCodigos(marcador))) {
+
+            if (texto.contains(
+                    textoDesdeCodigos(marcador))) {
+
                 return true;
             }
         }
 
         return false;
     }
+
 
     private String textoDesdeCodigos(int[] codigos) {
 
