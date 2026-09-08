@@ -163,28 +163,30 @@ body > *:not(#matrixCanvas):not(.matrix-glow),
 }
 
 /* =====================================================
-   NAVEGACIÓN LATERAL
+   NAVEGACIÓN SUPERIOR
    ===================================================== */
 
 .navbar {
     position: fixed;
-    top: 28px;
-    left: 28px;
-    width: 88px;
-    min-height: calc(100vh - 56px);
+    top: 22px;
+    left: 50%;
+    width: min(1180px, calc(100% - 40px));
+    min-height: 76px;
+    transform: translateX(-50%);
     border: 1px solid var(--matrix-border) !important;
-    border-radius: 26px;
+    border-radius: 24px;
     background: rgba(0, 7, 2, 0.72) !important;
-    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.58) !important;
+    box-shadow: 0 20px 70px rgba(0, 0, 0, 0.56), 0 0 26px rgba(57, 255, 82, 0.06) !important;
 }
 
 .navbar-container {
-    min-height: calc(100vh - 56px);
-    padding: 14px;
+    min-height: 76px;
+    padding: 12px 14px 12px 18px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    gap: 18px;
+    justify-content: space-between;
+    gap: 20px;
 }
 
 .brand,
@@ -194,10 +196,6 @@ body > *:not(#matrixCanvas):not(.matrix-glow),
     gap: 10px;
     color: var(--text);
     text-decoration: none;
-}
-
-.brand {
-    flex-direction: column;
 }
 
 .brand-symbol {
@@ -214,8 +212,6 @@ body > *:not(#matrixCanvas):not(.matrix-glow),
 }
 
 .brand-name {
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
     color: #dfffff;
     font: 800 0.82rem Consolas, "Courier New", monospace;
     letter-spacing: 0.08em;
@@ -223,31 +219,36 @@ body > *:not(#matrixCanvas):not(.matrix-glow),
 
 .navbar nav {
     flex: 1;
-    display: grid;
-    place-items: center;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .nav-links {
-    display: grid;
-    gap: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
     list-style: none;
 }
 
 .nav-links a,
 .nav-cta {
-    display: grid;
-    place-items: center;
-    width: 48px;
-    height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 46px;
     border: 1px solid transparent;
-    border-radius: 16px;
+    border-radius: 999px;
     color: rgba(235, 255, 237, 0.72);
     text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 750;
     transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
 }
 
 .nav-links a {
-    font-size: 0;
+    padding: 0 13px;
 }
 
 .nav-links .ui-icon,
@@ -268,12 +269,10 @@ body > *:not(#matrixCanvas):not(.matrix-glow),
 
 .nav-cta {
     color: #001904;
+    padding: 0 18px;
+    font-weight: 900;
     background: linear-gradient(135deg, #a9ffad, #34ff50);
     box-shadow: 0 0 22px rgba(52, 255, 80, 0.22);
-}
-
-.nav-cta {
-    font-size: 0;
 }
 
 .nav-toggle {
@@ -320,13 +319,13 @@ body > *:not(#matrixCanvas):not(.matrix-glow),
 .projects-section,
 .contact-section,
 .footer {
-    padding-left: 128px;
+    padding-left: 4vw;
+    padding-right: 4vw;
 }
 
 .hero {
     min-height: 100vh;
-    padding-top: 44px;
-    padding-right: 4vw;
+    padding-top: 132px;
     padding-bottom: 54px;
     display: grid;
     align-items: center;
@@ -1348,6 +1347,7 @@ body > *:not(#matrixCanvas):not(.matrix-glow),
         right: 14px;
         width: auto;
         min-height: 72px;
+        transform: none;
         border-radius: 24px;
     }
 
