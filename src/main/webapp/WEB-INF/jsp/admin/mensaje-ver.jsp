@@ -634,6 +634,9 @@
 
     </style>
 
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/admin.css">
+
 </head>
 
 
@@ -830,7 +833,7 @@
                             href="${pageContext.request.contextPath}/admin/mensajes"
                             class="btn btn-secondary">
 
-                        ← Volver a mensajes
+                        Volver a mensajes
 
                     </a>
 
@@ -841,7 +844,7 @@
                             href="mailto:${mensaje.correo}"
                             class="btn btn-primary">
 
-                        ✉ Responder por correo
+                        Responder por correo
 
                     </a>
 

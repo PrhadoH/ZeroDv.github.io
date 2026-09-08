@@ -769,6 +769,9 @@
 
     </style>
 
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/admin.css">
+
 </head>
 
 <body>
@@ -881,7 +884,7 @@
                 <div class="info-left">
 
                     <div class="info-icon">
-                        📁
+                        Archivo
                     </div>
 
                     <div class="info-text">
@@ -970,7 +973,7 @@
                         </span>
 
                         <span class="view-arrow">
-                            →
+                            Abrir
                         </span>
 
                     </span>
@@ -991,7 +994,7 @@
                     style="${empty semanas ? '' : 'display:none'}">
 
                 <div class="empty-icon">
-                    📂
+                    Sin semanas
                 </div>
 
                 <h2>

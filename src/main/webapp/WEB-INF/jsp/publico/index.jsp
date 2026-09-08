@@ -845,25 +845,35 @@
          id="semanas">
 
 
-    <div class="section-heading">
+    <div class="section-heading journey-heading">
 
-        <span class="section-tag">
-            03 / RECORRIDO
-        </span>
+        <div>
 
-        <h2>
-            Mi camino de aprendizaje
-        </h2>
+            <span class="section-tag">
+                &gt; 03 / RECORRIDO
+            </span>
+
+            <h2>
+                MI CAMINO
+                <strong>DE APRENDIZAJE</strong>
+            </h2>
+
+        </div>
 
         <p>
-            Explora las 16 etapas de mi formación y descubre
-            los trabajos realizados en cada semana.
+            16 semanas de evolución, práctica y desarrollo.
         </p>
+
+        <aside class="journey-console">
+            <span>SYSTEM.LOG</span>
+            <strong>LEARNING_PATH</strong>
+            <small>PROGRESO · 16 SEMANAS</small>
+        </aside>
 
     </div>
 
 
-    <div class="journey-grid">
+    <div class="journey-grid" aria-label="Roadmap de semanas">
 
 
         <c:forEach var="semana" items="${semanas}"><a
@@ -874,10 +884,20 @@
                 class="journey-card">
 
 
+            <span class="journey-node" aria-hidden="true"></span>
+
+
             <div class="journey-top">
 
-                <span class="journey-number"
-                      ><fmt:formatNumber value="${semana.numero}" minIntegerDigits="2" groupingUsed="false" /></span>
+                <div>
+
+                    <span class="journey-label"
+                          >WEEK_<fmt:formatNumber value="${semana.numero}" minIntegerDigits="2" groupingUsed="false" /></span>
+
+                    <span class="journey-number"
+                          ><fmt:formatNumber value="${semana.numero}" minIntegerDigits="2" groupingUsed="false" /></span>
+
+                </div>
 
                 <span class="journey-arrow">
                     <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true">
@@ -902,7 +922,23 @@
             </div>
 
 
-            <div class="journey-line"></div>
+            <div class="journey-meta">
+
+                <span class="journey-tech-icon" aria-hidden="true">
+                    <svg class="ui-icon" viewBox="0 0 24 24">
+                        <path d="m8 9-4 3 4 3"/>
+                        <path d="m16 9 4 3-4 3"/>
+                        <path d="m14 5-4 14"/>
+                    </svg>
+                </span>
+
+                <c:if test="${semana.estado}">
+                    <span class="journey-status">
+                        DISPONIBLE
+                    </span>
+                </c:if>
+
+            </div>
 
         </a></c:forEach>
 

@@ -1,0 +1,1146 @@
+/* =====================================================
+   ADMIN CONTROL CENTER - AprHd
+   ===================================================== */
+
+:root {
+    --admin-bg: #050805;
+    --admin-surface: rgba(6, 14, 8, 0.86);
+    --admin-surface-soft: rgba(8, 20, 11, 0.70);
+    --admin-panel: rgba(2, 10, 5, 0.82);
+    --admin-line: rgba(93, 255, 115, 0.18);
+    --admin-line-strong: rgba(93, 255, 115, 0.42);
+    --admin-green: #61ff72;
+    --admin-green-soft: rgba(97, 255, 114, 0.12);
+    --admin-cyan: #57e8ff;
+    --admin-text: #f4fff5;
+    --admin-muted: #9aaea0;
+    --admin-dim: #657769;
+    --admin-danger: #ff5d6c;
+    --admin-warning: #ffd36a;
+    --sidebar-width: 292px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    background: var(--admin-bg);
+}
+
+body {
+    min-width: 320px;
+    overflow-x: hidden;
+    color: var(--admin-text) !important;
+    background:
+            radial-gradient(circle at 18% 0%, rgba(97, 255, 114, 0.08), transparent 28%),
+            radial-gradient(circle at 88% 18%, rgba(87, 232, 255, 0.055), transparent 28%),
+            linear-gradient(135deg, #030503 0%, #071008 46%, #020402 100%) !important;
+    font-family: Inter, "Segoe UI", Arial, Helvetica, sans-serif !important;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+            linear-gradient(rgba(97, 255, 114, 0.035) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(97, 255, 114, 0.026) 1px, transparent 1px);
+    background-size: 52px 52px;
+    mask-image: radial-gradient(circle at 50% 18%, black, transparent 76%);
+}
+
+a {
+    color: inherit;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+svg {
+    display: block;
+}
+
+.dashboard,
+.page {
+    min-height: 100vh !important;
+    background: transparent !important;
+}
+
+.main {
+    min-height: 100vh !important;
+    margin-left: var(--sidebar-width) !important;
+    background: transparent !important;
+}
+
+/* =====================================================
+   SIDEBAR
+   ===================================================== */
+
+.sidebar {
+    position: fixed;
+    inset: 18px auto 18px 18px;
+    z-index: 1000;
+    width: calc(var(--sidebar-width) - 36px);
+    color: var(--admin-text);
+}
+
+.sidebar-shell {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 18px;
+    border: 1px solid var(--admin-line);
+    border-radius: 30px;
+    background:
+            linear-gradient(180deg, rgba(3, 15, 7, 0.92), rgba(1, 5, 3, 0.94)),
+            radial-gradient(circle at 50% 0%, rgba(97, 255, 114, 0.10), transparent 32%);
+    backdrop-filter: blur(18px);
+    box-shadow: 16px 0 70px rgba(0, 0, 0, 0.48), inset 0 0 44px rgba(97, 255, 114, 0.035);
+    overflow-y: auto;
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--admin-line);
+}
+
+.brand-icon,
+.admin-avatar,
+.avatar,
+.topbar-mark {
+    display: grid !important;
+    place-items: center !important;
+    border-radius: 16px !important;
+    color: #011706 !important;
+    background: linear-gradient(135deg, #d9ffdc, var(--admin-green)) !important;
+    box-shadow: 0 0 28px rgba(97, 255, 114, 0.24) !important;
+    font-weight: 950 !important;
+    letter-spacing: 0 !important;
+}
+
+.brand-icon {
+    width: 54px !important;
+    height: 54px !important;
+    font-size: 1rem !important;
+}
+
+.brand-info h2 {
+    margin: 0 !important;
+    color: #ffffff !important;
+    font: 950 1.34rem Consolas, "Courier New", monospace !important;
+}
+
+.brand-info span,
+.admin-card span,
+.menu-title,
+.sidebar-version,
+.sidebar-version small {
+    color: var(--admin-dim) !important;
+    font-family: Consolas, "Courier New", monospace !important;
+    letter-spacing: 0.11em !important;
+    text-transform: uppercase !important;
+}
+
+.brand-info span {
+    font-size: 0.72rem !important;
+}
+
+.admin-card {
+    position: relative;
+    display: grid !important;
+    grid-template-columns: 42px 1fr 10px !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 14px !important;
+    border: 1px solid rgba(97, 255, 114, 0.18) !important;
+    border-radius: 22px !important;
+    background: rgba(97, 255, 114, 0.055) !important;
+}
+
+.admin-avatar {
+    width: 42px !important;
+    height: 42px !important;
+    font-size: 0.82rem !important;
+}
+
+.admin-card strong {
+    display: block;
+    margin-bottom: 3px;
+    color: #ffffff;
+    font-size: 0.95rem;
+}
+
+.online-dot,
+.status-dot {
+    width: 10px !important;
+    height: 10px !important;
+    border-radius: 50% !important;
+    background: var(--admin-green) !important;
+    box-shadow: 0 0 18px rgba(97, 255, 114, 0.82) !important;
+}
+
+.menu-title {
+    margin-top: 2px !important;
+    font-size: 0.68rem !important;
+}
+
+.menu {
+    display: grid !important;
+    gap: 8px !important;
+}
+
+.menu-item,
+.logout-button {
+    position: relative;
+    min-height: 52px;
+    display: grid !important;
+    grid-template-columns: 42px 1fr auto !important;
+    align-items: center !important;
+    gap: 10px !important;
+    width: 100% !important;
+    padding: 7px 10px !important;
+    border: 1px solid transparent !important;
+    border-radius: 17px !important;
+    color: rgba(244, 255, 245, 0.76) !important;
+    text-decoration: none !important;
+    background: transparent !important;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.menu-item::before,
+.logout-button::before {
+    content: "";
+    position: absolute;
+    left: -1px;
+    width: 3px;
+    height: 24px;
+    border-radius: 999px;
+    background: transparent;
+    box-shadow: none;
+}
+
+.menu-item:hover,
+.logout-button:hover,
+.menu-item.active {
+    color: #ffffff !important;
+    border-color: rgba(97, 255, 114, 0.26) !important;
+    background: rgba(97, 255, 114, 0.085) !important;
+    transform: translateX(4px);
+}
+
+.menu-item.active::before {
+    background: var(--admin-green);
+    box-shadow: 0 0 18px rgba(97, 255, 114, 0.78);
+}
+
+.menu-icon {
+    display: grid !important;
+    place-items: center !important;
+    width: 38px !important;
+    height: 38px !important;
+    border: 1px solid rgba(97, 255, 114, 0.16) !important;
+    border-radius: 13px !important;
+    color: var(--admin-green) !important;
+    background: rgba(97, 255, 114, 0.055) !important;
+    font-size: 0 !important;
+}
+
+.menu-icon svg,
+.topbar svg,
+.btn svg,
+.btn-action svg {
+    width: 19px;
+    height: 19px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.message-badge {
+    min-width: 24px;
+    height: 24px;
+    display: inline-grid;
+    place-items: center;
+    border-radius: 999px;
+    color: #031305 !important;
+    background: var(--admin-green) !important;
+    font: 900 0.72rem Consolas, "Courier New", monospace !important;
+}
+
+.sidebar-bottom {
+    margin-top: auto !important;
+    display: grid !important;
+    gap: 12px !important;
+}
+
+.sidebar-bottom form {
+    margin: 0 !important;
+}
+
+.logout-button {
+    color: #ffc4ca !important;
+}
+
+.logout-button .menu-icon {
+    color: var(--admin-danger) !important;
+    border-color: rgba(255, 93, 108, 0.22) !important;
+    background: rgba(255, 93, 108, 0.08) !important;
+}
+
+.sidebar-version {
+    padding: 14px !important;
+    border: 1px solid rgba(97, 255, 114, 0.14) !important;
+    border-radius: 18px !important;
+    background: rgba(0, 0, 0, 0.22) !important;
+    font-size: 0.66rem !important;
+}
+
+.sidebar-version small {
+    display: block !important;
+    margin-top: 5px !important;
+    color: var(--admin-green) !important;
+}
+
+.admin-menu-toggle {
+    display: none;
+}
+
+/* =====================================================
+   TOPBAR Y CONTENIDO
+   ===================================================== */
+
+.topbar {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 100 !important;
+    min-height: 86px !important;
+    height: auto !important;
+    padding: 18px clamp(20px, 4vw, 42px) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    border-bottom: 1px solid var(--admin-line) !important;
+    background: rgba(3, 8, 4, 0.76) !important;
+    backdrop-filter: blur(18px) !important;
+    box-shadow: 0 18px 60px rgba(0, 0, 0, 0.26) !important;
+}
+
+.topbar-left {
+    display: flex !important;
+    align-items: center !important;
+    gap: 14px !important;
+}
+
+.topbar-mark {
+    width: 48px !important;
+    height: 48px !important;
+}
+
+.topbar h1 {
+    margin: 0 !important;
+    color: #ffffff !important;
+    font-size: clamp(1.15rem, 2vw, 1.55rem) !important;
+    letter-spacing: 0 !important;
+}
+
+.topbar-left span,
+.admin-role {
+    color: var(--admin-muted) !important;
+}
+
+.topbar .admin {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+}
+
+.topbar .admin-info {
+    text-align: right !important;
+}
+
+.admin-name {
+    color: #ffffff !important;
+    font-weight: 850 !important;
+}
+
+.avatar {
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 50% !important;
+}
+
+.content {
+    padding: clamp(24px, 4vw, 42px) !important;
+}
+
+.dashboard-intro,
+.header,
+.info-bar,
+.content-card,
+.panel,
+.form-container,
+.tabla-container,
+.table-container,
+.empty,
+.empty-state,
+.message-card,
+.metadata-card,
+.message-body,
+.week-card,
+.work-card,
+.profile-preview,
+.foto-actual {
+    border: 1px solid var(--admin-line) !important;
+    background:
+            linear-gradient(145deg, rgba(8, 22, 11, 0.78), rgba(2, 7, 4, 0.90)) !important;
+    backdrop-filter: blur(14px) !important;
+    box-shadow: 0 24px 76px rgba(0, 0, 0, 0.34), inset 0 0 34px rgba(97, 255, 114, 0.026) !important;
+}
+
+.dashboard-intro,
+.header {
+    position: relative !important;
+    min-height: auto !important;
+    margin-bottom: 22px !important;
+    padding: clamp(24px, 4vw, 38px) !important;
+    border-radius: 30px 30px 30px 8px !important;
+    overflow: hidden !important;
+}
+
+.dashboard-intro::after,
+.header::after,
+.panel::after,
+.content-card::after,
+.form-container::after {
+    content: "";
+    position: absolute;
+    inset: auto 20px 18px auto;
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--admin-green));
+    opacity: 0.48;
+}
+
+.welcome h2,
+.header h2,
+.contact-heading h2 {
+    color: #ffffff !important;
+    font-size: clamp(2rem, 4vw, 4.2rem) !important;
+    line-height: 0.95 !important;
+    letter-spacing: 0 !important;
+}
+
+.welcome h2 span,
+.header h2 span,
+.header span,
+.intro-label,
+.header-label {
+    color: var(--admin-green) !important;
+}
+
+.welcome p,
+.header p,
+.info-text span,
+.panel p,
+.content-card p,
+.empty p,
+.empty-state p {
+    color: var(--admin-muted) !important;
+    line-height: 1.68 !important;
+}
+
+.system-status,
+.info-code,
+.message-count,
+.badge-nuevo,
+.badge-leido,
+.estado,
+.semana-badge,
+.work-tag {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    width: fit-content !important;
+    min-height: 34px !important;
+    padding: 0 12px !important;
+    border: 1px solid rgba(97, 255, 114, 0.22) !important;
+    border-radius: 999px !important;
+    color: var(--admin-green) !important;
+    background: rgba(97, 255, 114, 0.07) !important;
+    font: 850 0.72rem Consolas, "Courier New", monospace !important;
+    letter-spacing: 0.10em !important;
+    text-transform: uppercase !important;
+}
+
+/* =====================================================
+   DASHBOARD
+   ===================================================== */
+
+.stats {
+    display: grid !important;
+    grid-template-columns: 1.25fr repeat(3, minmax(0, 1fr)) !important;
+    gap: 16px !important;
+    margin: 24px 0 !important;
+}
+
+.stat-card {
+    position: relative !important;
+    min-height: 190px !important;
+    padding: 22px !important;
+    border: 1px solid var(--admin-line) !important;
+    border-radius: 26px !important;
+    background: linear-gradient(145deg, rgba(7, 19, 9, 0.82), rgba(1, 6, 3, 0.94)) !important;
+    box-shadow: 0 24px 74px rgba(0, 0, 0, 0.34) !important;
+    overflow: hidden !important;
+}
+
+.stat-card:first-child {
+    grid-row: span 2;
+}
+
+.stat-card::before {
+    content: "";
+    position: absolute;
+    right: -42px;
+    bottom: -42px;
+    width: 140px;
+    height: 140px;
+    border: 1px solid rgba(97, 255, 114, 0.13);
+    border-radius: 50%;
+}
+
+.stat-top {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+}
+
+.stat-icon,
+.quick-icon,
+.info-icon,
+.message-status-icon,
+.empty-icon,
+.project-icon {
+    display: grid !important;
+    place-items: center !important;
+    width: 48px !important;
+    height: 48px !important;
+    border: 1px solid rgba(97, 255, 114, 0.22) !important;
+    border-radius: 16px !important;
+    color: var(--admin-green) !important;
+    background: rgba(97, 255, 114, 0.07) !important;
+    font-size: 0 !important;
+}
+
+.stat-icon::before,
+.quick-icon::before,
+.info-icon::before,
+.message-status-icon::before,
+.empty-icon::before,
+.project-icon::before {
+    content: "";
+    width: 18px;
+    height: 18px;
+    border: 2px solid currentColor;
+    border-radius: 6px;
+    box-shadow: 0 0 12px rgba(97, 255, 114, 0.18);
+}
+
+.stat-code,
+.stat-label,
+.panel-header span {
+    color: var(--admin-dim) !important;
+    font-family: Consolas, "Courier New", monospace !important;
+    letter-spacing: 0.10em !important;
+    text-transform: uppercase !important;
+}
+
+.stat-label {
+    margin-top: 26px !important;
+}
+
+.stat-number {
+    margin-top: 8px !important;
+    color: #ffffff !important;
+    font: 950 clamp(2.7rem, 5vw, 5.6rem) Consolas, "Courier New", monospace !important;
+    line-height: 0.9 !important;
+    text-shadow: 0 0 22px rgba(97, 255, 114, 0.20) !important;
+}
+
+.dashboard-grid {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr) !important;
+    gap: 18px !important;
+}
+
+.panel {
+    position: relative !important;
+    padding: 24px !important;
+    border-radius: 28px !important;
+}
+
+.panel-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 14px !important;
+    margin-bottom: 20px !important;
+}
+
+.panel-header h3,
+.content-card h3 {
+    color: #ffffff !important;
+}
+
+.quick-actions {
+    display: grid !important;
+    gap: 12px !important;
+}
+
+.quick-action {
+    display: grid !important;
+    grid-template-columns: 48px 1fr !important;
+    align-items: center !important;
+    gap: 14px !important;
+    padding: 14px !important;
+    border: 1px solid rgba(97, 255, 114, 0.16) !important;
+    border-radius: 18px !important;
+    color: var(--admin-text) !important;
+    background: rgba(97, 255, 114, 0.045) !important;
+    text-decoration: none !important;
+}
+
+.quick-action:hover,
+.stat-card:hover,
+.week-card:hover,
+.work-card:hover {
+    border-color: var(--admin-line-strong) !important;
+    transform: translateY(-4px) !important;
+    box-shadow: 0 28px 82px rgba(0, 0, 0, 0.42), 0 0 28px rgba(97, 255, 114, 0.10) !important;
+}
+
+/* =====================================================
+   LISTAS, TABLAS Y CARDS
+   ===================================================== */
+
+.info-bar {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 18px !important;
+    margin-bottom: 22px !important;
+    padding: 18px !important;
+    border-radius: 22px !important;
+}
+
+.info-left {
+    display: flex !important;
+    align-items: center !important;
+    gap: 14px !important;
+}
+
+.tabla-container,
+.table-container,
+.content-card {
+    border-radius: 28px !important;
+    overflow: hidden !important;
+}
+
+table {
+    width: 100% !important;
+    border-collapse: separate !important;
+    border-spacing: 0 10px !important;
+    background: transparent !important;
+}
+
+thead,
+thead tr,
+th {
+    background: transparent !important;
+}
+
+th {
+    padding: 12px 16px !important;
+    color: var(--admin-dim) !important;
+    border: 0 !important;
+    font: 850 0.72rem Consolas, "Courier New", monospace !important;
+    letter-spacing: 0.12em !important;
+    text-transform: uppercase !important;
+}
+
+tbody tr {
+    background: rgba(7, 19, 9, 0.68) !important;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+tbody tr:hover {
+    background: rgba(97, 255, 114, 0.06) !important;
+    transform: translateY(-2px);
+}
+
+td {
+    padding: 16px !important;
+    border-top: 1px solid rgba(97, 255, 114, 0.12) !important;
+    border-bottom: 1px solid rgba(97, 255, 114, 0.12) !important;
+    color: var(--admin-text) !important;
+}
+
+td:first-child {
+    border-left: 1px solid rgba(97, 255, 114, 0.12) !important;
+    border-radius: 16px 0 0 16px !important;
+}
+
+td:last-child {
+    border-right: 1px solid rgba(97, 255, 114, 0.12) !important;
+    border-radius: 0 16px 16px 0 !important;
+}
+
+.numero,
+.week-big-number {
+    color: var(--admin-green) !important;
+    font-family: Consolas, "Courier New", monospace !important;
+    font-weight: 950 !important;
+}
+
+.acciones,
+.botones {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+    align-items: center !important;
+}
+
+.btn,
+.btn-nuevo,
+.btn-action,
+.view-button,
+.btn-guardar,
+.btn-cancelar,
+.btn-trabajos,
+.btn-editar,
+.btn-eliminar,
+.btn-view,
+.btn-delete,
+.btn-send,
+.btn-cancel {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    min-height: 42px !important;
+    padding: 0 15px !important;
+    border: 1px solid rgba(97, 255, 114, 0.24) !important;
+    border-radius: 14px !important;
+    color: var(--admin-green) !important;
+    background: rgba(97, 255, 114, 0.075) !important;
+    text-decoration: none !important;
+    font-weight: 850 !important;
+    cursor: pointer !important;
+    transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, color 0.2s ease !important;
+}
+
+.btn:hover,
+.btn-nuevo:hover,
+.btn-action:hover,
+.view-button:hover {
+    transform: translateY(-2px) !important;
+    border-color: var(--admin-line-strong) !important;
+    background: rgba(97, 255, 114, 0.12) !important;
+}
+
+.btn-guardar,
+.btn-nuevo,
+.btn-send {
+    color: #041306 !important;
+    background: linear-gradient(135deg, #d9ffdc, var(--admin-green)) !important;
+    box-shadow: 0 0 26px rgba(97, 255, 114, 0.18) !important;
+}
+
+.btn-cancelar,
+.btn-cancel {
+    color: #d8e4da !important;
+    border-color: rgba(255, 255, 255, 0.14) !important;
+    background: rgba(255, 255, 255, 0.055) !important;
+}
+
+.btn-eliminar,
+.btn-delete {
+    color: #ffc4ca !important;
+    border-color: rgba(255, 93, 108, 0.28) !important;
+    background: rgba(255, 93, 108, 0.08) !important;
+}
+
+.weeks-grid,
+.works-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) !important;
+    gap: 16px !important;
+}
+
+.week-card,
+.work-card {
+    position: relative !important;
+    min-height: 240px !important;
+    padding: 22px !important;
+    border-radius: 26px !important;
+    color: var(--admin-text) !important;
+    text-decoration: none !important;
+    overflow: hidden !important;
+    transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease !important;
+}
+
+.week-card::after,
+.work-card::after {
+    content: "";
+    position: absolute;
+    right: -34px;
+    bottom: -34px;
+    width: 128px;
+    height: 128px;
+    border: 1px solid rgba(97, 255, 114, 0.16);
+    border-radius: 50%;
+}
+
+.week-number,
+.week-code,
+.work-tag {
+    font-family: Consolas, "Courier New", monospace !important;
+}
+
+.week-big-number {
+    display: block !important;
+    margin: 22px 0 6px !important;
+    font-size: clamp(3.2rem, 8vw, 6rem) !important;
+    line-height: 0.85 !important;
+}
+
+/* =====================================================
+   FORMULARIOS
+   ===================================================== */
+
+.form-container {
+    position: relative !important;
+    padding: clamp(22px, 4vw, 38px) !important;
+    border-radius: 30px !important;
+}
+
+.seccion {
+    margin-bottom: 22px !important;
+    padding: 22px !important;
+    border: 1px solid rgba(97, 255, 114, 0.14) !important;
+    border-radius: 24px !important;
+    background: rgba(0, 0, 0, 0.18) !important;
+}
+
+.seccion h2,
+.form-intro strong {
+    margin-bottom: 18px !important;
+    color: #ffffff !important;
+    font-size: 1.05rem !important;
+}
+
+.fila {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 16px !important;
+}
+
+.campo,
+.form-group {
+    display: grid !important;
+    gap: 8px !important;
+}
+
+label {
+    color: var(--admin-muted) !important;
+    font: 850 0.76rem Consolas, "Courier New", monospace !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+}
+
+input,
+textarea,
+select {
+    width: 100% !important;
+    border: 1px solid rgba(97, 255, 114, 0.18) !important;
+    border-radius: 16px !important;
+    color: var(--admin-text) !important;
+    background: rgba(0, 0, 0, 0.32) !important;
+    outline: none !important;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease !important;
+}
+
+input,
+select {
+    min-height: 48px !important;
+    padding: 0 15px !important;
+}
+
+textarea {
+    min-height: 140px !important;
+    padding: 14px 15px !important;
+    resize: vertical !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--admin-line-strong) !important;
+    background: rgba(0, 0, 0, 0.46) !important;
+    box-shadow: 0 0 0 4px rgba(97, 255, 114, 0.08) !important;
+}
+
+small {
+    color: var(--admin-dim) !important;
+}
+
+.foto-box {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) 220px !important;
+    gap: 18px !important;
+    align-items: start !important;
+}
+
+.foto-actual,
+.profile-preview {
+    border-radius: 22px !important;
+}
+
+.profile-preview {
+    width: 100% !important;
+    max-height: 260px !important;
+    object-fit: cover !important;
+}
+
+/* =====================================================
+   MENSAJES
+   ===================================================== */
+
+.mensaje-no-leido {
+    box-shadow: inset 4px 0 0 var(--admin-green) !important;
+}
+
+.badge-nuevo {
+    color: #041306 !important;
+    background: var(--admin-green) !important;
+}
+
+.badge-leido {
+    color: var(--admin-muted) !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+}
+
+.mensaje-texto span {
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.message-body,
+.message-content {
+    padding: clamp(22px, 4vw, 34px) !important;
+    border-radius: 26px !important;
+    color: var(--admin-text) !important;
+    line-height: 1.8 !important;
+}
+
+/* =====================================================
+   FOOTER Y RESPONSIVE
+   ===================================================== */
+
+.footer,
+.dashboard-footer {
+    display: flex !important;
+    justify-content: space-between !important;
+    gap: 14px !important;
+    margin-top: 28px !important;
+    padding: 16px 0 !important;
+    color: var(--admin-dim) !important;
+    background: transparent !important;
+    font-family: Consolas, "Courier New", monospace !important;
+    font-size: 0.76rem !important;
+}
+
+@media (max-width: 1180px) {
+    :root {
+        --sidebar-width: 94px;
+    }
+
+    .sidebar {
+        width: 76px;
+    }
+
+    .sidebar-shell {
+        padding: 12px;
+        align-items: center;
+    }
+
+    .brand-info,
+    .admin-card .admin-info,
+    .menu-title,
+    .menu-text,
+    .sidebar-version,
+    .message-badge {
+        display: none !important;
+    }
+
+    .admin-card,
+    .menu-item,
+    .logout-button {
+        grid-template-columns: 1fr !important;
+        place-items: center !important;
+        padding: 8px !important;
+    }
+
+    .stats,
+    .dashboard-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+
+@media (max-width: 780px) {
+    :root {
+        --sidebar-width: 0px;
+    }
+
+    .main {
+        margin-left: 0 !important;
+    }
+
+    .sidebar {
+        inset: 14px auto auto 14px;
+        width: auto;
+        height: auto;
+    }
+
+    .admin-menu-toggle {
+        display: grid;
+        place-items: center;
+        width: 48px;
+        height: 48px;
+        border: 1px solid var(--admin-line-strong);
+        border-radius: 16px;
+        color: var(--admin-green);
+        background: rgba(3, 12, 5, 0.92);
+        box-shadow: 0 16px 42px rgba(0, 0, 0, 0.42);
+        cursor: pointer;
+    }
+
+    .admin-menu-toggle span {
+        display: block;
+        width: 20px;
+        height: 2px;
+        margin: 3px 0;
+        border-radius: 999px;
+        background: currentColor;
+    }
+
+    .sidebar-shell {
+        position: fixed;
+        top: 72px;
+        left: 14px;
+        right: 14px;
+        height: auto;
+        max-height: calc(100vh - 92px);
+        align-items: stretch;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-10px);
+        transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .sidebar.is-open .sidebar-shell {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+    }
+
+    .brand-info,
+    .admin-card .admin-info,
+    .menu-title,
+    .menu-text,
+    .sidebar-version,
+    .message-badge {
+        display: block !important;
+    }
+
+    .menu-item,
+    .logout-button,
+    .admin-card {
+        grid-template-columns: 42px 1fr auto !important;
+        place-items: initial !important;
+    }
+
+    .topbar {
+        padding-left: 76px !important;
+    }
+
+    .topbar .admin-info {
+        display: none !important;
+    }
+
+    .content {
+        padding: 18px !important;
+    }
+
+    .stats,
+    .dashboard-grid,
+    .fila,
+    .foto-box {
+        grid-template-columns: 1fr !important;
+    }
+
+    .stat-card:first-child {
+        grid-row: auto;
+    }
+
+    table,
+    thead,
+    tbody,
+    tr,
+    th,
+    td {
+        display: block !important;
+    }
+
+    thead {
+        display: none !important;
+    }
+
+    tbody tr {
+        margin-bottom: 14px !important;
+        padding: 12px !important;
+        border: 1px solid rgba(97, 255, 114, 0.14) !important;
+        border-radius: 20px !important;
+    }
+
+    td,
+    td:first-child,
+    td:last-child {
+        border: 0 !important;
+        border-radius: 0 !important;
+        padding: 9px 6px !important;
+    }
+
+    .footer,
+    .dashboard-footer,
+    .info-bar {
+        display: grid !important;
+    }
+}

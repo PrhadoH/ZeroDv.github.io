@@ -935,6 +935,9 @@
 
     </style>
 
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/admin.css">
+
 </head>
 
 
@@ -1111,7 +1114,7 @@
                     <div class="seccion">
 
                         <h2>
-                            📋 Información del trabajo
+                            Información del trabajo
                         </h2>
 
 
@@ -1162,7 +1165,7 @@
                         <div class="campo">
 
                             <label for="enlace">
-                                🔗 Enlace del trabajo
+                                Enlace del trabajo
                             </label>
 
                             <input
@@ -1190,7 +1193,7 @@
                     <div class="seccion">
 
                         <h2>
-                            🖼️ Imagen del trabajo
+                            Imagen del trabajo
                         </h2>
 
 
@@ -1250,7 +1253,7 @@
                     <div class="seccion">
 
                         <h2>
-                            📎 Archivo del trabajo
+                            Archivo del trabajo
                         </h2>
 
 
@@ -1288,7 +1291,7 @@
                                     style="${not empty trabajo.archivo ? '' : 'display:none'}">
 
                                 <span class="archivo-icono">
-                                    📎
+                                    Archivo
                                 </span>
 
                                 <strong>
@@ -1300,7 +1303,7 @@
                                         target="_blank"
                                         rel="noopener noreferrer">
 
-                                    Ver archivo ↗
+                                    Ver archivo
 
                                 </a>
 
@@ -1322,8 +1325,6 @@
                                 type="submit"
                                 class="btn btn-guardar">
 
-                            💾
-
                             <span>${nuevo ? 'Guardar trabajo' : 'Actualizar trabajo'}</span>
 
                         </button>
@@ -1333,7 +1334,7 @@
                                 class="btn btn-cancelar"
                                 href="${pageContext.request.contextPath}/admin/trabajos/semana/${semana.id}">
 
-                            ← Cancelar
+                            Cancelar
 
                         </a>
 

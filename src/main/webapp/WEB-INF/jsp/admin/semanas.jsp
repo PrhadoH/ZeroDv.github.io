@@ -682,7 +682,10 @@
 
     }
 
-  </style>
+    </style>
+
+  <link rel="stylesheet"
+        href="${pageContext.request.contextPath}/css/admin.css">
 
 </head>
 
@@ -792,7 +795,7 @@
                 href="${pageContext.request.contextPath}/admin/semanas/nuevo"
                 class="btn-nuevo">
 
-          ➕ Nueva semana
+          Nueva semana
 
         </a>
 
@@ -877,7 +880,7 @@
                         class="btn btn-trabajos"
                         href="${pageContext.request.contextPath}/admin/trabajos/semana/${semana.id}">
 
-                  📚 Trabajos
+                  Trabajos
 
                 </a>
 
@@ -888,7 +891,7 @@
                         class="btn btn-editar"
                         href="${pageContext.request.contextPath}/admin/semanas/editar/${semana.id}">
 
-                  ✏️ Editar
+                  Editar
 
                 </a>
 
@@ -900,7 +903,7 @@
                         href="${pageContext.request.contextPath}/admin/semanas/eliminar/${semana.id}"
                         onclick="return confirm('¿Seguro que deseas eliminar esta semana?');">
 
-                  🗑️ Eliminar
+                  Eliminar
 
                 </a>
 

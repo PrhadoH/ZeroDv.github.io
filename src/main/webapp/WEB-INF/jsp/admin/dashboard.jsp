@@ -1077,6 +1077,9 @@
 
     </style>
 
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/admin.css">
+
 </head>
 
 

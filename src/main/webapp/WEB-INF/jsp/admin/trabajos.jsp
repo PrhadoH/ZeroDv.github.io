@@ -893,6 +893,9 @@
 
     </style>
 
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/admin.css">
+
 </head>
 
 <body>
@@ -1033,7 +1036,6 @@
                         class="btn btn-nuevo"
                         href="${pageContext.request.contextPath}/admin/trabajos/nuevo/${semana.id}">
 
-                    ➕
                     Nuevo trabajo
 
                 </a>
@@ -1043,7 +1045,6 @@
                         class="btn btn-volver"
                         href="${pageContext.request.contextPath}/admin/semanas">
 
-                    ←
                     Volver a semanas
 
                 </a>
@@ -1060,7 +1061,7 @@
                     style="${empty trabajos ? '' : 'display:none'}">
 
                 <div class="vacio-icon">
-                    📂
+                    Sin trabajos
                 </div>
 
                 <h2>
@@ -1077,7 +1078,6 @@
                         class="btn btn-nuevo"
                         href="${pageContext.request.contextPath}/admin/trabajos/nuevo/${semana.id}">
 
-                    ➕
                     Agregar primer trabajo
 
                 </a>
@@ -1128,7 +1128,7 @@
                             style="${empty trabajo.imagen ? '' : 'display:none'}">
 
                         <div class="sin-imagen-icon">
-                            🖼️
+                            Imagen
                         </div>
 
                         Sin imagen
@@ -1188,7 +1188,6 @@
                                     target="_blank"
                                     rel="noopener noreferrer">
 
-                                🔗
                                 Ver enlace externo
 
                             </a>
@@ -1202,7 +1201,6 @@
                                     target="_blank"
                                     rel="noopener noreferrer">
 
-                                📎
                                 Ver archivo
 
                             </a>
@@ -1223,7 +1221,6 @@
                                     class="btn btn-editar"
                                     href="${pageContext.request.contextPath}/admin/trabajos/editar/${trabajo.id}">
 
-                                ✏️
                                 Editar
 
                             </a>
@@ -1236,7 +1233,6 @@
                                     href="${pageContext.request.contextPath}/admin/trabajos/eliminar/${trabajo.id}"
                                     onclick="return confirm('¿Seguro que deseas eliminar este trabajo?');">
 
-                                🗑️
                                 Eliminar
 
                             </a>

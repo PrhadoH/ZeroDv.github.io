@@ -660,6 +660,9 @@
 
     </style>
 
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/admin.css">
+
 </head>
 
 <body>
@@ -896,7 +899,6 @@
                                 type="submit"
                                 class="btn btn-guardar">
 
-                            💾
                             <span>${semana.id == null ? 'Guardar semana' : 'Guardar cambios'}</span>
 
                         </button>
@@ -906,7 +908,7 @@
                                 href="${pageContext.request.contextPath}/admin/semanas"
                                 class="btn btn-cancelar">
 
-                            ↩ Cancelar
+                            Cancelar
 
                         </a>
 

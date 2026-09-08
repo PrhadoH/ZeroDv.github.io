@@ -820,6 +820,15 @@ body > *:not(#matrixCanvas):not(.matrix-glow),
     padding-bottom: clamp(84px, 10vw, 132px);
 }
 
+.journey-section {
+    padding-top: clamp(42px, 5vw, 70px);
+    padding-bottom: clamp(68px, 7vw, 100px);
+}
+
+.skills-section {
+    padding-bottom: clamp(46px, 5vw, 72px);
+}
+
 .section-heading,
 .about-layout,
 .skills-grid,
@@ -979,32 +988,125 @@ body > *:not(#matrixCanvas):not(.matrix-glow),
     color: #7dff89;
 }
 
+.journey-heading {
+    grid-template-columns: minmax(0, 0.82fr) minmax(260px, 0.45fr) minmax(230px, 0.36fr);
+    align-items: center;
+    margin-bottom: 28px;
+}
+
+.journey-heading h2 {
+    display: grid;
+    gap: 4px;
+    text-transform: uppercase;
+}
+
+.journey-heading h2 strong {
+    color: #86ff91;
+    font: inherit;
+    text-shadow: 0 0 22px rgba(57, 255, 82, 0.30);
+}
+
+.journey-console {
+    justify-self: end;
+    width: min(100%, 250px);
+    padding: 18px;
+    border: 1px solid rgba(84, 255, 111, 0.22);
+    border-radius: 20px 20px 20px 6px;
+    background: rgba(0, 13, 4, 0.70);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 18px 56px rgba(0, 0, 0, 0.36), inset 0 0 28px rgba(57, 255, 82, 0.035);
+}
+
+.journey-console span,
+.journey-console small {
+    display: block;
+    color: var(--dim);
+    font: 800 0.7rem Consolas, "Courier New", monospace;
+    letter-spacing: 0.12em;
+}
+
+.journey-console strong {
+    display: block;
+    margin: 8px 0;
+    color: #8dff98;
+    font: 900 1rem Consolas, "Courier New", monospace;
+}
+
 .journey-grid {
     position: relative;
     display: grid;
-    gap: 18px;
+    grid-template-columns: minmax(0, 1fr) 72px minmax(0, 1fr);
+    row-gap: 12px;
+    padding-block: 18px;
+}
+
+.journey-grid::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 1px;
+    transform: translateX(-50%);
+    background: linear-gradient(180deg, transparent, rgba(84, 255, 111, 0.40), rgba(84, 255, 111, 0.12), transparent);
+    box-shadow: 0 0 22px rgba(57, 255, 82, 0.10);
 }
 
 .journey-card {
     position: relative;
-    width: min(560px, 100%);
-    min-height: 150px;
-    padding: 22px;
+    width: min(500px, 100%);
+    min-height: 168px;
+    padding: 20px 20px 18px;
     border-radius: 24px;
     color: inherit;
     text-decoration: none;
     display: grid;
-    gap: 16px;
+    gap: 14px;
+    overflow: visible;
+    transition: border-color 0.24s ease, box-shadow 0.24s ease, transform 0.24s ease, background 0.24s ease;
+}
+
+.journey-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background:
+            radial-gradient(circle at 18% 20%, rgba(106, 255, 125, 0.10), transparent 28%),
+            linear-gradient(135deg, rgba(57, 255, 82, 0.08), transparent 42%);
+    opacity: 0.76;
+    pointer-events: none;
 }
 
 .journey-card:nth-child(odd) {
-    justify-self: start;
+    grid-column: 1;
+    justify-self: end;
     border-radius: 28px 28px 28px 8px;
 }
 
 .journey-card:nth-child(even) {
-    justify-self: end;
+    grid-column: 3;
+    justify-self: start;
     border-radius: 28px 28px 8px 28px;
+}
+
+.journey-node {
+    position: absolute;
+    top: 30px;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(198, 255, 202, 0.74);
+    border-radius: 50%;
+    background: #0cff35;
+    box-shadow: 0 0 22px rgba(57, 255, 82, 0.70), 0 0 0 8px rgba(57, 255, 82, 0.08);
+}
+
+.journey-card:nth-child(odd) .journey-node {
+    right: -44px;
+}
+
+.journey-card:nth-child(even) .journey-node {
+    left: -44px;
 }
 
 .journey-card:hover,
@@ -1017,15 +1119,48 @@ body > *:not(#matrixCanvas):not(.matrix-glow),
     transform: translateY(-4px);
 }
 
+.journey-card:hover {
+    background: linear-gradient(145deg, rgba(0, 22, 7, 0.82), rgba(0, 5, 1, 0.90));
+    box-shadow: 0 26px 82px rgba(0, 0, 0, 0.48), 0 0 34px rgba(57, 255, 82, 0.14);
+}
+
+.journey-card:hover .journey-arrow {
+    transform: translate(3px, -3px);
+}
+
 .journey-top {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: relative;
+    z-index: 1;
+}
+
+.journey-label {
+    display: block;
+    margin-bottom: 2px;
+    color: #6dff7d;
+    font: 850 0.72rem Consolas, "Courier New", monospace;
+    letter-spacing: 0.16em;
 }
 
 .journey-number {
-    color: #84ff90;
-    font: 950 clamp(2rem, 4vw, 3.4rem) Consolas, "Courier New", monospace;
+    display: block;
+    color: rgba(132, 255, 144, 0.18);
+    font: 950 clamp(3rem, 5vw, 5.6rem) Consolas, "Courier New", monospace;
+    line-height: 0.82;
+}
+
+.journey-arrow {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border: 1px solid rgba(84, 255, 111, 0.25);
+    border-radius: 14px;
+    color: #94ff9f;
+    background: rgba(57, 255, 82, 0.07);
+    transition: transform 0.24s ease, box-shadow 0.24s ease;
 }
 
 .journey-content span,
@@ -1039,6 +1174,55 @@ body > *:not(#matrixCanvas):not(.matrix-glow),
 .project-content h3 {
     margin: 8px 0;
     font-size: 1.35rem;
+}
+
+.journey-content,
+.journey-meta {
+    position: relative;
+    z-index: 1;
+}
+
+.journey-content h3 {
+    color: #f6fff7;
+    font-size: clamp(1.15rem, 2vw, 1.55rem);
+}
+
+.journey-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(84, 255, 111, 0.16);
+}
+
+.journey-tech-icon {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border: 1px solid rgba(84, 255, 111, 0.24);
+    border-radius: 12px;
+    color: #81ff8d;
+    background: rgba(57, 255, 82, 0.06);
+}
+
+.journey-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #baffbf;
+    font: 850 0.68rem Consolas, "Courier New", monospace;
+    letter-spacing: 0.12em;
+}
+
+.journey-status::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #52ff68;
+    box-shadow: 0 0 14px rgba(82, 255, 104, 0.72);
 }
 
 .projects-grid {
@@ -1457,11 +1641,33 @@ body > *:not(#matrixCanvas):not(.matrix-glow),
     }
 
     .section-heading,
+    .journey-heading,
     .about-layout,
     .projects-grid,
     .contact-container,
     .footer-container {
         grid-template-columns: 1fr;
+    }
+
+    .journey-heading {
+        gap: 18px;
+        margin-bottom: 22px;
+    }
+
+    .journey-console {
+        justify-self: stretch;
+        width: 100%;
+    }
+
+    .journey-grid {
+        grid-template-columns: 34px minmax(0, 1fr);
+        row-gap: 14px;
+        padding-left: 0;
+    }
+
+    .journey-grid::before {
+        left: 17px;
+        transform: none;
     }
 
     .about-side {
@@ -1471,7 +1677,16 @@ body > *:not(#matrixCanvas):not(.matrix-glow),
     .journey-card,
     .journey-card:nth-child(odd),
     .journey-card:nth-child(even) {
+        grid-column: 2;
         justify-self: stretch;
+        width: 100%;
+        border-radius: 24px 24px 24px 8px;
+    }
+
+    .journey-card:nth-child(odd) .journey-node,
+    .journey-card:nth-child(even) .journey-node {
+        left: -25px;
+        right: auto;
     }
 
     .footer {

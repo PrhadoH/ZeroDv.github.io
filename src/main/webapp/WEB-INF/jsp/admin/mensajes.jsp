@@ -871,6 +871,9 @@
 
     </style>
 
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/admin.css">
+
 </head>
 
 <body>
@@ -983,7 +986,7 @@
                 <div class="info-left">
 
                     <div class="info-icon">
-                        ✉
+                        Mensajes
                     </div>
 
                     <div class="info-text">
@@ -1058,7 +1061,7 @@
                         style="${empty mensajes ? '' : 'display:none'}">
 
                     <div class="empty-icon">
-                        📭
+                        Sin mensajes
                     </div>
 
                     <h3>
@@ -1232,7 +1235,7 @@
                                             title="Ver mensaje"
                                             aria-label="Ver mensaje">
 
-                                        👁️
+                                        Ver
 
                                     </a>
 
@@ -1255,7 +1258,7 @@
                                                 title="Eliminar mensaje"
                                                 aria-label="Eliminar mensaje">
 
-                                            🗑️
+                                            Eliminar
 
                                         </button>
 

@@ -680,6 +680,9 @@
 
     </style>
 
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/admin.css">
+
 </head>
 
 <body>
@@ -803,7 +806,7 @@
                     <div class="seccion">
 
                         <h2>
-                            📋 Información personal
+                            Información personal
                         </h2>
 
 
@@ -896,7 +899,7 @@
                     <div class="seccion">
 
                         <h2>
-                            ✍️ Presentación
+                            Presentación
                         </h2>
 
 
@@ -942,7 +945,7 @@
                     <div class="seccion">
 
                         <h2>
-                            📞 Información de contacto
+                            Información de contacto
                         </h2>
 
 
@@ -994,7 +997,7 @@
                     <div class="seccion">
 
                         <h2>
-                            🌐 Redes profesionales
+                            Redes profesionales
                         </h2>
 
 
@@ -1046,7 +1049,7 @@
                     <div class="seccion">
 
                         <h2>
-                            🖼️ Foto de perfil
+                            Foto de perfil
                         </h2>
 
 
@@ -1110,7 +1113,7 @@
                                 type="submit"
                                 class="btn btn-guardar">
 
-                            💾 Guardar cambios
+                            Guardar cambios
 
                         </button>
 
@@ -1119,7 +1122,7 @@
                                 href="${pageContext.request.contextPath}/admin"
                                 class="btn btn-cancelar">
 
-                            ← Cancelar
+                            Cancelar
 
                         </a>
 
