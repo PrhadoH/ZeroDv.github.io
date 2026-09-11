@@ -791,6 +791,10 @@
                         method="post"
                         enctype="multipart/form-data">
 
+                    <input type="hidden"
+                           name="${_csrf.parameterName}"
+                           value="${_csrf.token}">
+
 
                     <!-- ID -->
 

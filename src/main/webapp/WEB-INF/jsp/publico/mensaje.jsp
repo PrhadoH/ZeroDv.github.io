@@ -183,6 +183,10 @@
         <form action="${pageContext.request.contextPath}/mensaje/enviar"
               method="post">
 
+            <input type="hidden"
+                   name="${_csrf.parameterName}"
+                   value="${_csrf.token}">
+
             <!-- NOMBRE -->
 
             <div class="form-group">

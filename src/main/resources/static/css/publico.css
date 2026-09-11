@@ -232,7 +232,8 @@ body > *:not(#matrixCanvas):not(.matrix-glow),
 }
 
 .nav-links a,
-.nav-cta {
+.nav-cta,
+.nav-logout {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -252,14 +253,16 @@ body > *:not(#matrixCanvas):not(.matrix-glow),
 }
 
 .nav-links .ui-icon,
-.nav-cta .ui-icon {
+.nav-cta .ui-icon,
+.nav-logout .ui-icon {
     width: 21px;
     height: 21px;
 }
 
 .nav-links a.active,
 .nav-links a:hover,
-.nav-cta:hover {
+.nav-cta:hover,
+.nav-logout:hover {
     color: #8cff98;
     border-color: rgba(98, 255, 124, 0.34);
     background: rgba(55, 255, 82, 0.08);
@@ -273,6 +276,21 @@ body > *:not(#matrixCanvas):not(.matrix-glow),
     font-weight: 900;
     background: linear-gradient(135deg, #a9ffad, #34ff50);
     box-shadow: 0 0 22px rgba(52, 255, 80, 0.22);
+}
+
+.nav-logout-form {
+    margin: 0;
+}
+
+.nav-logout-menu {
+    display: none;
+}
+
+.nav-logout {
+    padding: 0 16px;
+    color: rgba(235, 255, 237, 0.72);
+    background: rgba(0, 0, 0, 0.18);
+    cursor: pointer;
 }
 
 .nav-toggle {
@@ -1591,8 +1609,22 @@ body > *:not(#matrixCanvas):not(.matrix-glow),
         font-size: 0.95rem;
     }
 
-    .nav-cta {
+    .nav-cta,
+    .nav-logout-desktop {
         display: none;
+    }
+
+    .nav-logout-menu {
+        display: block;
+        padding: 12px;
+    }
+
+    .nav-logout-menu .nav-logout {
+        width: 100%;
+        justify-content: flex-start;
+        min-height: 46px;
+        padding-inline: 14px;
+        font-size: 0.95rem;
     }
 
     .hero,

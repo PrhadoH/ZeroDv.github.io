@@ -110,7 +110,38 @@
                     </a>
                 </li>
 
+                <% if (request.isUserInRole("ADMIN")) { %>
+                    <li>
+                        <a href="${pageContext.request.contextPath}/admin">
+                            <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                <rect x="3" y="3" width="7" height="7"/>
+                                <rect x="14" y="3" width="7" height="7"/>
+                                <rect x="3" y="14" width="7" height="7"/>
+                                <rect x="14" y="14" width="7" height="7"/>
+                            </svg>
+                            Panel administrativo
+                        </a>
+                    </li>
+                <% } %>
+
             </ul>
+
+            <form method="post"
+                  action="${pageContext.request.contextPath}/logout"
+                  class="nav-logout-form nav-logout-menu">
+                <input type="hidden"
+                       name="${_csrf.parameterName}"
+                       value="${_csrf.token}">
+                <button type="submit"
+                        class="nav-logout">
+                    <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M10 17l5-5-5-5"/>
+                        <path d="M15 12H3"/>
+                        <path d="M14 4h5v16h-5"/>
+                    </svg>
+                    Cerrar sesión
+                </button>
+            </form>
 
         </nav>
 
@@ -122,6 +153,23 @@
             </svg>
             Contactar
         </a>
+
+        <form method="post"
+              action="${pageContext.request.contextPath}/logout"
+              class="nav-logout-form nav-logout-desktop">
+            <input type="hidden"
+                   name="${_csrf.parameterName}"
+                   value="${_csrf.token}">
+            <button type="submit"
+                    class="nav-logout">
+                <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M10 17l5-5-5-5"/>
+                    <path d="M15 12H3"/>
+                    <path d="M14 4h5v16h-5"/>
+                </svg>
+                Cerrar sesión
+            </button>
+        </form>
 
     </div>
 
@@ -1177,30 +1225,32 @@
             </div>
 
 
-            <button
-                    type="button"
+            <% if (request.isUserInRole("ADMIN")) { %>
+                <button
+                        type="button"
 
-                    id="btnAbrirMensaje"
+                        id="btnAbrirMensaje"
 
-                    class="contact-button">
+                        class="contact-button">
 
-                <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M4 5h16v14H4z"/>
-                    <path d="m4 7 8 6 8-6"/>
-                </svg>
-
-                <span>
-                    Enviar un mensaje
-                </span>
-
-                <strong>
                     <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M5 12h14"/>
-                        <path d="m13 6 6 6-6 6"/>
+                        <path d="M4 5h16v14H4z"/>
+                        <path d="m4 7 8 6 8-6"/>
                     </svg>
-                </strong>
 
-            </button>
+                    <span>
+                        Enviar un mensaje
+                    </span>
+
+                    <strong>
+                        <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M5 12h14"/>
+                            <path d="m13 6 6 6-6 6"/>
+                        </svg>
+                    </strong>
+
+                </button>
+            <% } %>
 
         </div>
 
@@ -1213,8 +1263,9 @@
      MODAL DE CONTACTO
      ===================================================== -->
 
-<div id="modalMensaje"
-     class="modal-overlay">
+<% if (request.isUserInRole("ADMIN")) { %>
+    <div id="modalMensaje"
+         class="modal-overlay">
 
 
     <div class="modal-contacto">
@@ -1265,6 +1316,10 @@
                 action="${pageContext.request.contextPath}/mensaje/enviar"
 
                 method="post">
+
+            <input type="hidden"
+                   name="${_csrf.parameterName}"
+                   value="${_csrf.token}">
 
 
             <div class="form-group">
@@ -1388,7 +1443,8 @@
 
     </div>
 
-</div>
+    </div>
+<% } %>
 
 
 <!-- =====================================================

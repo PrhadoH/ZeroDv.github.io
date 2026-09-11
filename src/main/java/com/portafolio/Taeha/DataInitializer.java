@@ -10,6 +10,7 @@ import com.portafolio.Taeha.repository.UsuarioRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
@@ -20,7 +21,8 @@ public class DataInitializer {
             UsuarioRepository usuarioRepository,
             PerfilRepository perfilRepository,
             SemanaRepository semanaRepository,
-            PasswordEncoder passwordEncoder) {
+            PasswordEncoder passwordEncoder,
+            Environment environment) {
 
         return args -> {
 
@@ -28,26 +30,100 @@ public class DataInitializer {
             // ADMINISTRADOR
             // ==========================================
 
-            Usuario usuario = usuarioRepository.findByUsuario("admin")
-                    .orElseGet(Usuario::new);
+            if (usuarioRepository.findByUsuario("admin").isEmpty()) {
 
-            usuario.setUsuario("admin");
+                String adminPassword =
+                        obtenerPasswordInicial(
+                                "ADMIN_PASSWORD",
+                                environment
+                        );
 
-            // CAMBIA AQUÍ TU NUEVA CONTRASEÑA
-            usuario.setPassword(
-                    passwordEncoder.encode("Zero123*")
-            );
+                Usuario admin = new Usuario();
 
-            usuario.setNombre("Antonio Prado H");
-            usuario.setRol("ADMIN");
-            usuario.setEstado(true);
+                admin.setUsuario("admin");
+                admin.setPassword(
+                        passwordEncoder.encode(
+                                adminPassword
+                        )
+                );
+                admin.setNombre("Antonio Prado H");
+                admin.setRol("ADMIN");
+                admin.setEstado(true);
 
-            usuarioRepository.save(usuario);
+                usuarioRepository.save(admin);
 
-            System.out.println("=================================");
-            System.out.println("ADMINISTRADOR ACTUALIZADO");
-            System.out.println("Usuario: admin");
-            System.out.println("=================================");
+                System.out.println(
+                        "Usuario administrador creado correctamente."
+                );
+            }
+
+
+            // ==========================================
+            // RESTABLECER CONTRASEÑA DEL ADMIN
+            // ==========================================
+
+            String adminResetPassword =
+                    environment.getProperty(
+                            "ADMIN_RESET_PASSWORD"
+                    );
+
+            if (adminResetPassword != null
+                    && !adminResetPassword.isBlank()) {
+
+                Usuario adminExistente =
+                        usuarioRepository
+                                .findByUsuario("admin")
+                                .orElseThrow(() ->
+                                        new IllegalStateException(
+                                                "No existe el usuario admin."
+                                        )
+                                );
+
+                adminExistente.setPassword(
+                        passwordEncoder.encode(
+                                adminResetPassword
+                        )
+                );
+
+                usuarioRepository.save(adminExistente);
+
+                System.out.println(
+                        "Contraseña del administrador actualizada correctamente."
+                );
+            }
+
+
+            // ==========================================
+            // USUARIO NORMAL
+            // ==========================================
+
+            if (usuarioRepository.findByUsuario("user").isEmpty()) {
+
+                String userPassword =
+                        obtenerPasswordInicial(
+                                "USER_PASSWORD",
+                                environment
+                        );
+
+                Usuario user = new Usuario();
+
+                user.setUsuario("user");
+                user.setPassword(
+                        passwordEncoder.encode(
+                                userPassword
+                        )
+                );
+
+                user.setNombre("Antonio Prado");
+                user.setRol("USER");
+                user.setEstado(true);
+
+                usuarioRepository.save(user);
+
+                System.out.println(
+                        "Usuario normal creado correctamente."
+                );
+            }
 
 
             // ==========================================
@@ -67,16 +143,21 @@ public class DataInitializer {
 
                 perfil.setNombre("Antonio");
                 perfil.setApellidos("PRADO H");
-                perfil.setCarrera("Diseño y Programación Web");
+                perfil.setCarrera(
+                        "Diseño y Programación Web"
+                );
 
                 perfil.setDescripcion(
                         "Estudiante de Diseño y Programación Web. " +
-                                "Portafolio académico correspondiente a las 16 semanas de clase."
+                                "Portafolio académico correspondiente " +
+                                "a las 16 semanas de clase."
                 );
 
                 if (perfil.getInstituto() == null
                         || perfil.getInstituto().isBlank()
-                        || contieneDatoAnterior(perfil.getInstituto())) {
+                        || contieneDatoAnterior(
+                        perfil.getInstituto()
+                )) {
 
                     perfil.setInstituto(
                             "Instituto de Educación Superior"
@@ -85,7 +166,9 @@ public class DataInitializer {
 
                 if (perfil.getSobreMi() == null
                         || perfil.getSobreMi().isBlank()
-                        || contieneDatoAnterior(perfil.getSobreMi())) {
+                        || contieneDatoAnterior(
+                        perfil.getSobreMi()
+                )) {
 
                     perfil.setSobreMi(
                             "Soy Antonio Prado H, desarrollador AprHd. " +
@@ -109,7 +192,9 @@ public class DataInitializer {
                     Semana semana = new Semana();
 
                     semana.setNumero(i);
-                    semana.setTitulo("Semana " + i);
+                    semana.setTitulo(
+                            "Semana " + i
+                    );
 
                     semana.setDescripcion(
                             "Contenido académico de la semana " + i
@@ -118,9 +203,17 @@ public class DataInitializer {
                     semanaRepository.save(semana);
                 }
 
-                System.out.println("=================================");
-                System.out.println("16 SEMANAS CREADAS");
-                System.out.println("=================================");
+                System.out.println(
+                        "================================="
+                );
+
+                System.out.println(
+                        "16 SEMANAS CREADAS"
+                );
+
+                System.out.println(
+                        "================================="
+                );
             }
         };
     }
@@ -130,27 +223,37 @@ public class DataInitializer {
     // DETECTAR DATOS ANTERIORES
     // ==========================================
 
-    private boolean contieneDatoAnterior(String valor) {
+    private boolean contieneDatoAnterior(
+            String valor) {
 
         if (valor == null) {
             return false;
         }
 
-        String texto = valor.toLowerCase();
+        String texto =
+                valor.toLowerCase();
 
         int[][] marcadores = {
+
                 {109, 111, 105, 115, 101, 115},
+
                 {109, 111, 105, 115, 233, 115},
+
                 {109, 111, 108, 105, 110, 97},
+
                 {115, 101, 98, 97, 115, 116, 105, 97, 110},
+
                 {115, 101, 98, 97, 115, 116, 105, 225, 110},
+
                 {114, 105, 118, 97, 115}
         };
 
         for (int[] marcador : marcadores) {
 
             if (texto.contains(
-                    textoDesdeCodigos(marcador))) {
+                    textoDesdeCodigos(
+                            marcador
+                    ))) {
 
                 return true;
             }
@@ -160,14 +263,50 @@ public class DataInitializer {
     }
 
 
-    private String textoDesdeCodigos(int[] codigos) {
+    // ==========================================
+    // CONVERTIR CÓDIGOS A TEXTO
+    // ==========================================
 
-        StringBuilder texto = new StringBuilder();
+    private String textoDesdeCodigos(
+            int[] codigos) {
+
+        StringBuilder texto =
+                new StringBuilder();
 
         for (int codigo : codigos) {
-            texto.append((char) codigo);
+
+            texto.append(
+                    (char) codigo
+            );
         }
 
         return texto.toString();
+    }
+
+
+    // ==========================================
+    // OBTENER CONTRASEÑA INICIAL
+    // ==========================================
+
+    private String obtenerPasswordInicial(
+            String variableEntorno,
+            Environment environment) {
+
+        String valor =
+                environment.getProperty(
+                        variableEntorno
+                );
+
+        if (valor != null
+                && !valor.isBlank()) {
+
+            return valor;
+        }
+
+        throw new IllegalStateException(
+                variableEntorno
+                        + " debe estar configurada "
+                        + "para crear el usuario inicial."
+        );
     }
 }

@@ -805,6 +805,10 @@
                         action="${pageContext.request.contextPath}/admin/semanas/guardar"
                         method="post">
 
+                    <input type="hidden"
+                           name="${_csrf.parameterName}"
+                           value="${_csrf.token}">
+
 
                     <!-- =================================================
                          NÚMERO
