@@ -13,6 +13,8 @@
 		<relativePath/>
 	</parent>
 
+
+
 	<!-- Información del proyecto -->
 	<groupId>com.portafolio</groupId>
 	<artifactId>Taeha</artifactId>
@@ -36,7 +38,9 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webmvc</artifactId>
+
 		</dependency>
+
 
 		<!-- ====================================== -->
 		<!-- SPRING DATA JPA -->
@@ -106,6 +110,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.cloudinary</groupId>
+			<artifactId>cloudinary-http44</artifactId>
+			<version>1.39.0</version>
 		</dependency>
 
 	</dependencies>

@@ -32,6 +32,7 @@ public class Perfil {
 
     private String linkedin;
 
+    @Column(length = 1000)
     private String foto;
 
     // ==========================================

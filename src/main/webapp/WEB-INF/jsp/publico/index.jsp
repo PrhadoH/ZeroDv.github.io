@@ -384,13 +384,13 @@
                 <div class="profile-image-box">
 
                     <img
-                            class="profile-photo"
+                                class="profile-photo"
 
-                            style="${not empty perfil.foto ? '' : 'display:none'}"
+                                    style="${not empty perfil.foto ? '' : 'display:none'}"
 
-                            src="${pageContext.request.contextPath}/publico/imagen/${perfil.foto}"
+                                    src="${perfil.foto}"
 
-                            alt="${perfil.nombre} ${perfil.apellidos}">
+                                    alt="${perfil.nombre} ${perfil.apellidos}">
 
 
                     <img

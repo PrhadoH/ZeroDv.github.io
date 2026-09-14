@@ -1097,7 +1097,7 @@
 
                                 <img
                                         class="profile-preview"
-                                        src="${pageContext.request.contextPath}/publico/imagen/${perfil.foto}"
+                                        src="${perfil.foto}"
                                         alt="${perfil.nombre} ${perfil.apellidos}">
 
                             </div>
@@ -1170,11 +1170,3 @@
 </body>
 
 </html>
-
-
-
-
-
-
-
-
