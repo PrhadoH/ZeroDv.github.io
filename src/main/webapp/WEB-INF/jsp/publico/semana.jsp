@@ -27,18 +27,18 @@
 
             min-height: 100vh;
 
-            padding: 150px 7% 100px;
+            padding: 132px 7% 88px;
 
             background:
-                    radial-gradient(
-                            circle at 15% 15%,
-                            rgba(66, 232, 255, .10),
-                            transparent 28%
+                    linear-gradient(
+                            135deg,
+                            rgba(57, 255, 82, .08),
+                            transparent 34%
                     ),
-                    radial-gradient(
-                            circle at 85% 70%,
-                            rgba(124, 255, 107, .08),
-                            transparent 30%
+                    linear-gradient(
+                            215deg,
+                            rgba(66, 232, 255, .08),
+                            transparent 38%
                     ),
                     #080b12;
 
@@ -54,16 +54,15 @@
 
             position: absolute;
 
-            width: 500px;
-            height: 500px;
+            inset: 0;
 
-            border: 1px solid rgba(66, 232, 255, .08);
-
-            border-radius: 50%;
-
-            top: -250px;
-            right: -150px;
-
+            background-image:
+                    linear-gradient(rgba(124,255,107,.045) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(66,232,255,.035) 1px, transparent 1px);
+            background-size: 56px 56px;
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,.75), transparent 68%);
+            opacity: .55;
+            pointer-events: none;
         }
 
 
@@ -102,7 +101,7 @@
 
             letter-spacing: 1px;
 
-            margin-bottom: 55px;
+            margin-bottom: 38px;
 
             transition: .3s;
 
@@ -126,13 +125,27 @@
 
             display: grid;
 
-            grid-template-columns: 280px 1fr;
+            grid-template-columns: minmax(210px, 280px) minmax(0, 1fr);
 
-            gap: 70px;
+            gap: clamp(28px, 5vw, 64px);
 
             align-items: center;
 
-            margin-bottom: 100px;
+            margin-bottom: 70px;
+
+            padding: clamp(26px, 4vw, 44px);
+
+            border: 1px solid rgba(124,255,107,.16);
+
+            border-radius: 8px;
+
+            background:
+                    linear-gradient(135deg, rgba(124,255,107,.07), rgba(66,232,255,.025) 48%, rgba(255,255,255,.018)),
+                    rgba(5, 10, 16, .76);
+
+            box-shadow:
+                    0 24px 70px rgba(0,0,0,.32),
+                    inset 0 1px 0 rgba(255,255,255,.04);
 
         }
 
@@ -145,16 +158,25 @@
 
             position: relative;
 
-            padding: 35px;
+            min-height: 210px;
 
-            border-left: 2px solid #7cff6b;
+            padding: 28px;
+
+            border: 1px solid rgba(66,232,255,.18);
+
+            border-left: 3px solid #7cff6b;
+
+            border-radius: 8px;
 
             background:
                     linear-gradient(
                             135deg,
-                            rgba(124, 255, 107, .06),
+                            rgba(124, 255, 107, .09),
                             transparent
-                    );
+                    ),
+                    rgba(4, 9, 14, .72);
+
+            overflow: hidden;
 
         }
 
@@ -171,14 +193,14 @@
 
             letter-spacing: 4px;
 
-            margin-bottom: 10px;
+            margin-bottom: 18px;
 
         }
 
 
         .week-number {
 
-            font-size: 130px;
+            font-size: clamp(86px, 9vw, 132px);
 
             line-height: .85;
 
@@ -188,7 +210,7 @@
 
             -webkit-text-stroke: 1px rgba(66, 232, 255, .55);
 
-            letter-spacing: -8px;
+            letter-spacing: 0;
 
         }
 
@@ -199,15 +221,15 @@
 
             position: absolute;
 
-            bottom: 15px;
+            bottom: 18px;
 
-            right: 20px;
+            right: 22px;
 
             font-size: 11px;
 
             letter-spacing: 4px;
 
-            color: rgba(255,255,255,.25);
+            color: rgba(255,255,255,.24);
 
         }
 
@@ -233,22 +255,22 @@
 
             letter-spacing: 3px;
 
-            margin-bottom: 15px;
+            margin-bottom: 14px;
 
         }
 
 
         .week-information h1 {
 
-            margin: 0 0 25px;
+            margin: 0 0 18px;
 
             color: #ffffff;
 
-            font-size: clamp(38px, 5vw, 68px);
+            font-size: clamp(36px, 5vw, 64px);
 
-            line-height: 1.05;
+            line-height: 1.04;
 
-            letter-spacing: -2px;
+            letter-spacing: 0;
 
         }
 
@@ -264,9 +286,9 @@
 
             color: #9ca8b8;
 
-            font-size: 17px;
+            font-size: clamp(15px, 1.6vw, 17px);
 
-            line-height: 1.9;
+            line-height: 1.75;
 
             max-width: 720px;
 
@@ -291,7 +313,7 @@
                             transparent
                     );
 
-            margin-bottom: 65px;
+            margin-bottom: 52px;
 
             opacity: .6;
 
@@ -308,11 +330,11 @@
 
             justify-content: space-between;
 
-            align-items: end;
+            align-items: flex-end;
 
             gap: 30px;
 
-            margin-bottom: 45px;
+            margin-bottom: 32px;
 
         }
 
@@ -340,9 +362,9 @@
 
             color: white;
 
-            font-size: 38px;
+            font-size: clamp(30px, 4vw, 40px);
 
-            letter-spacing: -1px;
+            letter-spacing: 0;
 
         }
 
@@ -351,7 +373,7 @@
 
             margin: 0;
 
-            color: #687486;
+            color: #8b96a7;
 
             max-width: 350px;
 
@@ -371,9 +393,13 @@
             display: grid;
 
             grid-template-columns:
-                repeat(12, 1fr);
+                    repeat(auto-fit, minmax(min(100%, 310px), 380px));
 
             gap: 28px;
+
+            justify-content: start;
+
+            align-items: stretch;
 
         }
 
@@ -384,18 +410,16 @@
 
         .work-card {
 
-            grid-column: span 6;
-
             background:
                     linear-gradient(
                             145deg,
-                            #10151e,
-                            #0c1017
+                            rgba(16, 21, 30, .96),
+                            rgba(8, 13, 20, .96)
                     );
 
-            border: 1px solid rgba(255,255,255,.08);
+            border: 1px solid rgba(124,255,107,.12);
 
-            border-radius: 4px;
+            border-radius: 8px;
 
             overflow: hidden;
 
@@ -404,26 +428,21 @@
             transition:
                     transform .4s ease,
                     border-color .4s ease,
-                    box-shadow .4s ease;
-
-        }
-
-
-        .work-card:nth-child(3n) {
-
-            grid-column: 3 / span 8;
+                    box-shadow .4s ease,
+                    background .4s ease;
 
         }
 
 
         .work-card:hover {
 
-            transform: translateY(-8px);
+            transform: translateY(-6px);
 
             border-color: rgba(124,255,107,.45);
 
             box-shadow:
-                    0 25px 60px rgba(0,0,0,.35);
+                    0 22px 52px rgba(0,0,0,.34),
+                    0 0 24px rgba(124,255,107,.08);
 
         }
 
@@ -436,7 +455,7 @@
 
             position: relative;
 
-            height: 270px;
+            aspect-ratio: 16 / 10;
 
             overflow: hidden;
 
@@ -491,7 +510,7 @@
 
         .no-image {
 
-            height: 270px;
+            aspect-ratio: 16 / 10;
 
             display: flex;
 
@@ -536,7 +555,7 @@
 
         .work-content {
 
-            padding: 30px;
+            padding: 26px;
 
         }
 
@@ -551,25 +570,27 @@
 
             letter-spacing: 3px;
 
-            margin-bottom: 12px;
+            margin-bottom: 10px;
 
         }
 
 
         .work-content h3 {
 
-            margin: 0 0 15px;
+            margin: 0 0 12px;
 
             color: #ffffff;
 
-            font-size: 25px;
+            font-size: 22px;
+
+            line-height: 1.25;
 
         }
 
 
         .work-content p {
 
-            margin: 0 0 25px;
+            margin: 0 0 22px;
 
             color: #8b96a7;
 
@@ -607,9 +628,13 @@
 
             gap: 8px;
 
+            min-height: 42px;
+
             padding: 10px 16px;
 
-            border: 1px solid rgba(66,232,255,.25);
+            border: 1px solid rgba(66,232,255,.28);
+
+            border-radius: 6px;
 
             color: #42e8ff;
 
@@ -619,7 +644,11 @@
 
             font-weight: 700;
 
-            transition: .3s;
+            transition:
+                    background .3s ease,
+                    color .3s ease,
+                    border-color .3s ease,
+                    transform .3s ease;
 
         }
 
@@ -631,6 +660,8 @@
             color: #080b12;
 
             border-color: #42e8ff;
+
+            transform: translateY(-2px);
 
         }
 
@@ -738,7 +769,7 @@
 
                 grid-template-columns: 1fr;
 
-                gap: 30px;
+                gap: 24px;
 
             }
 
@@ -753,15 +784,6 @@
             .week-number {
 
                 font-size: 100px;
-
-            }
-
-
-            .work-card,
-
-            .work-card:nth-child(3n) {
-
-                grid-column: span 12;
 
             }
 
@@ -802,7 +824,9 @@
 
             .week-intro {
 
-                margin-bottom: 70px;
+                margin-bottom: 48px;
+
+                padding: 22px;
 
             }
 
@@ -816,7 +840,7 @@
 
             .week-information h1 {
 
-                font-size: 38px;
+                font-size: 34px;
 
             }
 
@@ -835,18 +859,18 @@
             }
 
 
-            .work-image-container,
+            .work-content {
 
-            .no-image {
-
-                height: 220px;
+                padding: 22px;
 
             }
 
 
-            .work-content {
+            .work-link {
 
-                padding: 24px;
+                width: 100%;
+
+                justify-content: center;
 
             }
 
@@ -981,12 +1005,16 @@
 
                 <h1>
 
-                    <span>Semana ${semana.numero}</span>
-
-                    <br>
-
-                    <span
-                           >${semana.titulo}</span>
+                    <span>
+                        <c:choose>
+                            <c:when test="${not empty semana.titulo}">
+                                ${semana.titulo}
+                            </c:when>
+                            <c:otherwise>
+                                Semana ${semana.numero}
+                            </c:otherwise>
+                        </c:choose>
+                    </span>
 
                 </h1>
 
