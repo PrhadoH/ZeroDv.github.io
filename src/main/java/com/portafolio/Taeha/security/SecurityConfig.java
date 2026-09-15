@@ -84,6 +84,24 @@ public class SecurityConfig {
                 )
 
                 // ======================================
+                // ACCESO DENEGADO
+                // USER INTENTA ENTRAR A ADMIN
+                // ======================================
+
+                .exceptionHandling(exception -> exception
+
+                        .accessDeniedHandler(
+                                (request, response, ex) -> {
+
+                                    response.sendRedirect(
+                                            request.getContextPath()
+                                                    + "/login"
+                                    );
+                                }
+                        )
+                )
+
+                // ======================================
                 // LOGOUT
                 // ======================================
 
