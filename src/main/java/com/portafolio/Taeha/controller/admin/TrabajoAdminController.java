@@ -6,10 +6,6 @@ import com.portafolio.Taeha.repository.SemanaRepository;
 import com.portafolio.Taeha.repository.TrabajoRepository;
 import com.portafolio.Taeha.service.ArchivoService;
 
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -180,6 +176,7 @@ public class TrabajoAdminController {
 
             // -------------------------------------------------
             // NUEVA IMAGEN
+            // CLOUDINARY
             // -------------------------------------------------
 
             if (imagenArchivo != null &&
@@ -198,8 +195,8 @@ public class TrabajoAdminController {
                 );
 
 
-                // Eliminar imagen anterior
-
+                // Por ahora ArchivoService no elimina
+                // físicamente de Cloudinary.
                 if (imagenAnterior != null &&
                         !imagenAnterior.isBlank()) {
 
@@ -212,6 +209,8 @@ public class TrabajoAdminController {
 
             // -------------------------------------------------
             // NUEVO ARCHIVO
+            // PDF / WORD / EXCEL / POWERPOINT / TXT
+            // CLOUDINARY
             // -------------------------------------------------
 
             if (archivoTrabajo != null &&
@@ -230,8 +229,8 @@ public class TrabajoAdminController {
                 );
 
 
-                // Eliminar archivo anterior
-
+                // Por ahora ArchivoService no elimina
+                // físicamente de Cloudinary.
                 if (archivoAnterior != null &&
                         !archivoAnterior.isBlank()) {
 
@@ -243,7 +242,7 @@ public class TrabajoAdminController {
 
 
             // -------------------------------------------------
-            // GUARDAR CAMBIOS
+            // GUARDAR CAMBIOS EN AIVEN / MYSQL
             // -------------------------------------------------
 
             trabajoRepository.save(
@@ -264,43 +263,44 @@ public class TrabajoAdminController {
 
 
         // -----------------------------------------------------
-        // GUARDAR IMAGEN
+        // GUARDAR IMAGEN EN CLOUDINARY
         // -----------------------------------------------------
 
         if (imagenArchivo != null &&
                 !imagenArchivo.isEmpty()) {
 
-            String nombreImagen =
+            String urlImagen =
                     archivoService.guardarImagen(
                             imagenArchivo
                     );
 
             trabajo.setImagen(
-                    nombreImagen
+                    urlImagen
             );
         }
 
 
         // -----------------------------------------------------
-        // GUARDAR ARCHIVO
+        // GUARDAR ARCHIVO EN CLOUDINARY
+        // PDF / WORD / EXCEL / POWERPOINT / TXT
         // -----------------------------------------------------
 
         if (archivoTrabajo != null &&
                 !archivoTrabajo.isEmpty()) {
 
-            String nombreArchivo =
+            String urlArchivo =
                     archivoService.guardarArchivo(
                             archivoTrabajo
                     );
 
             trabajo.setArchivo(
-                    nombreArchivo
+                    urlArchivo
             );
         }
 
 
         // -----------------------------------------------------
-        // GUARDAR EN MYSQL
+        // GUARDAR URL Y DATOS EN AIVEN / MYSQL
         // -----------------------------------------------------
 
         trabajoRepository.save(
@@ -372,7 +372,7 @@ public class TrabajoAdminController {
 
 
         // -----------------------------------------------------
-        // OBTENER ARCHIVOS
+        // OBTENER URL DE IMAGEN
         // -----------------------------------------------------
 
         String imagen =
@@ -383,7 +383,7 @@ public class TrabajoAdminController {
 
 
         // -----------------------------------------------------
-        // ELIMINAR IMAGEN FÍSICA
+        // IMAGEN
         // -----------------------------------------------------
 
         if (imagen != null &&
@@ -396,7 +396,7 @@ public class TrabajoAdminController {
 
 
         // -----------------------------------------------------
-        // ELIMINAR ARCHIVO FÍSICO
+        // ARCHIVO
         // -----------------------------------------------------
 
         if (archivo != null &&
@@ -409,7 +409,7 @@ public class TrabajoAdminController {
 
 
         // -----------------------------------------------------
-        // ELIMINAR REGISTRO DE MYSQL
+        // ELIMINAR REGISTRO DE AIVEN / MYSQL
         // -----------------------------------------------------
 
         trabajoRepository.deleteById(
@@ -419,174 +419,5 @@ public class TrabajoAdminController {
 
         return "redirect:/admin/trabajos/semana/"
                 + semanaId;
-    }
-
-
-    // =========================================================
-    // MOSTRAR IMAGEN
-    // =========================================================
-
-    @GetMapping("/imagen/{nombre}")
-    @ResponseBody
-    public ResponseEntity<Resource> verImagen(
-            @PathVariable String nombre) {
-
-        Resource resource =
-                archivoService.cargarImagen(
-                        nombre
-                );
-
-        if (resource == null ||
-                !resource.exists()) {
-
-            return ResponseEntity
-                    .notFound()
-                    .build();
-        }
-
-
-        MediaType tipo =
-                MediaType.IMAGE_JPEG;
-
-        String nombreMinuscula =
-                nombre.toLowerCase();
-
-
-        if (nombreMinuscula.endsWith(".png")) {
-
-            tipo = MediaType.IMAGE_PNG;
-
-        } else if (nombreMinuscula.endsWith(".gif")) {
-
-            tipo = MediaType.IMAGE_GIF;
-
-        } else if (nombreMinuscula.endsWith(".webp")) {
-
-            tipo = MediaType.parseMediaType(
-                    "image/webp"
-            );
-        }
-
-
-        return ResponseEntity
-                .ok()
-                .contentType(tipo)
-                .body(resource);
-    }
-
-
-    // =========================================================
-    // MOSTRAR ARCHIVO
-    // =========================================================
-
-    @GetMapping("/archivo/{nombre}")
-    @ResponseBody
-    public ResponseEntity<Resource> verArchivo(
-            @PathVariable String nombre) {
-
-        Resource resource =
-                archivoService.cargarArchivo(
-                        nombre
-                );
-
-
-        // -----------------------------------------------------
-        // ARCHIVO NO ENCONTRADO
-        // -----------------------------------------------------
-
-        if (resource == null ||
-                !resource.exists()) {
-
-            return ResponseEntity
-                    .notFound()
-                    .build();
-        }
-
-
-        // -----------------------------------------------------
-        // TIPO MIME
-        // -----------------------------------------------------
-
-        MediaType tipo =
-                MediaType.APPLICATION_OCTET_STREAM;
-
-        String nombreMinuscula =
-                nombre.toLowerCase();
-
-
-        // PDF
-        if (nombreMinuscula.endsWith(".pdf")) {
-
-            tipo = MediaType.APPLICATION_PDF;
-        }
-
-
-        // WORD
-        else if (nombreMinuscula.endsWith(".doc")) {
-
-            tipo = MediaType.parseMediaType(
-                    "application/msword"
-            );
-        }
-
-        else if (nombreMinuscula.endsWith(".docx")) {
-
-            tipo = MediaType.parseMediaType(
-                    "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-            );
-        }
-
-
-        // EXCEL
-        else if (nombreMinuscula.endsWith(".xls")) {
-
-            tipo = MediaType.parseMediaType(
-                    "application/vnd.ms-excel"
-            );
-        }
-
-        else if (nombreMinuscula.endsWith(".xlsx")) {
-
-            tipo = MediaType.parseMediaType(
-                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-            );
-        }
-
-
-        // POWERPOINT
-        else if (nombreMinuscula.endsWith(".ppt")) {
-
-            tipo = MediaType.parseMediaType(
-                    "application/vnd.ms-powerpoint"
-            );
-        }
-
-        else if (nombreMinuscula.endsWith(".pptx")) {
-
-            tipo = MediaType.parseMediaType(
-                    "application/vnd.openxmlformats-officedocument.presentationml.presentation"
-            );
-        }
-
-
-        // TXT
-        else if (nombreMinuscula.endsWith(".txt")) {
-
-            tipo = MediaType.TEXT_PLAIN;
-        }
-
-
-        // -----------------------------------------------------
-        // RESPUESTA
-        // -----------------------------------------------------
-
-        return ResponseEntity
-                .ok()
-                .contentType(tipo)
-                .header(
-                        HttpHeaders.CONTENT_DISPOSITION,
-                        "inline; filename=\"" + nombre + "\""
-                )
-                .body(resource);
     }
 }

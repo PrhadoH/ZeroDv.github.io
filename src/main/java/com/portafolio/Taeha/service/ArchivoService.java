@@ -1,260 +1,128 @@
 package com.portafolio.Taeha.service;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.UUID;
+import java.util.Map;
 
 @Service
 public class ArchivoService {
 
-    private final Path carpetaImagenes;
-    private final Path carpetaArchivos;
+    private final Cloudinary cloudinary;
 
-    public ArchivoService(
-            @Value("${app.upload.dir:uploads}")
-            String directorio) {
-
-        this.carpetaImagenes =
-                Paths.get(directorio, "imagenes")
-                        .toAbsolutePath()
-                        .normalize();
-
-        this.carpetaArchivos =
-                Paths.get(directorio, "archivos")
-                        .toAbsolutePath()
-                        .normalize();
-
-        try {
-
-            Files.createDirectories(carpetaImagenes);
-            Files.createDirectories(carpetaArchivos);
-
-        } catch (IOException e) {
-
-            throw new RuntimeException(
-                    "No se pudieron crear las carpetas de archivos",
-                    e
-            );
-        }
+    public ArchivoService(Cloudinary cloudinary) {
+        this.cloudinary = cloudinary;
     }
 
-
+    // ==========================================
+    // GUARDAR IMAGEN EN CLOUDINARY
+    // ==========================================
     public String guardarImagen(MultipartFile archivo) {
 
-        return guardarArchivo(
-                archivo,
-                carpetaImagenes
-        );
+        if (archivo == null || archivo.isEmpty()) {
+            return null;
+        }
+
+        try {
+
+            Map resultado = cloudinary.uploader().upload(
+                    archivo.getBytes(),
+                    ObjectUtils.asMap(
+                            "folder", "taeha/trabajos/imagenes",
+                            "resource_type", "image"
+                    )
+            );
+
+            return resultado.get("secure_url").toString();
+
+        } catch (Exception e) {
+
+            throw new RuntimeException(
+                    "Error al subir la imagen a Cloudinary",
+                    e
+            );
+        }
     }
 
 
+    // ==========================================
+    // GUARDAR PDF, WORD, PPT, EXCEL, ZIP, ETC.
+    // ==========================================
     public String guardarArchivo(MultipartFile archivo) {
 
-        return guardarArchivo(
-                archivo,
-                carpetaArchivos
-        );
-    }
-
-
-    private String guardarArchivo(
-            MultipartFile archivo,
-            Path carpeta) {
-
         if (archivo == null || archivo.isEmpty()) {
-
             return null;
         }
 
         try {
 
-            String nombreOriginal =
-                    archivo.getOriginalFilename();
+            String nombreOriginal = archivo.getOriginalFilename();
 
-            if (nombreOriginal == null
-                    || nombreOriginal.isBlank()) {
+            boolean esPdf =
+                    nombreOriginal != null &&
+                            nombreOriginal.toLowerCase().endsWith(".pdf");
 
-                throw new RuntimeException(
-                        "El archivo no tiene nombre"
+
+            // ==========================================
+            // PDF
+            // Se guarda como IMAGE para que Cloudinary
+            // pueda mostrarlo directamente en navegador.
+            // ==========================================
+
+            if (esPdf) {
+
+                Map resultado = cloudinary.uploader().upload(
+                        archivo.getBytes(),
+                        ObjectUtils.asMap(
+                                "folder", "taeha/trabajos/archivos",
+                                "resource_type", "image",
+                                "use_filename", true,
+                                "unique_filename", true
+                        )
                 );
+
+                return resultado.get("secure_url").toString();
             }
 
 
-            String extension = "";
+            // ==========================================
+            // OTROS ARCHIVOS
+            // Word, Excel, PowerPoint, ZIP, TXT, etc.
+            // ==========================================
 
-            int punto =
-                    nombreOriginal.lastIndexOf(".");
-
-
-            if (punto >= 0) {
-
-                extension =
-                        nombreOriginal
-                                .substring(punto)
-                                .toLowerCase();
-            }
-
-
-            String nombreNuevo =
-                    UUID.randomUUID() + extension;
-
-
-            Path destino =
-                    carpeta
-                            .resolve(nombreNuevo)
-                            .normalize();
-
-
-            if (!destino.startsWith(carpeta)) {
-
-                throw new RuntimeException(
-                        "Ruta de archivo no válida"
-                );
-            }
-
-
-            Files.copy(
-                    archivo.getInputStream(),
-                    destino,
-                    StandardCopyOption.REPLACE_EXISTING
+            Map resultado = cloudinary.uploader().upload(
+                    archivo.getBytes(),
+                    ObjectUtils.asMap(
+                            "folder", "taeha/trabajos/archivos",
+                            "resource_type", "raw",
+                            "use_filename", true,
+                            "unique_filename", true
+                    )
             );
 
+            return resultado.get("secure_url").toString();
 
-            return nombreNuevo;
-
-
-        } catch (IOException e) {
+        } catch (Exception e) {
 
             throw new RuntimeException(
-                    "Error al guardar el archivo",
+                    "Error al subir el archivo a Cloudinary",
                     e
             );
         }
     }
 
 
-    public Resource cargarImagen(String nombre) {
+    // ==========================================
+    // ELIMINACIÓN
+    // ==========================================
 
-        return cargar(
-                carpetaImagenes,
-                nombre
-        );
+    public void eliminarImagen(String url) {
+        // Se implementará después con public_id.
     }
 
-
-    public Resource cargarArchivo(String nombre) {
-
-        return cargar(
-                carpetaArchivos,
-                nombre
-        );
-    }
-
-
-    private Resource cargar(
-            Path carpeta,
-            String nombre) {
-
-        try {
-
-            Path archivo =
-                    carpeta
-                            .resolve(nombre)
-                            .normalize();
-
-
-            if (!archivo.startsWith(carpeta)) {
-
-                return null;
-            }
-
-
-            Resource resource =
-                    new UrlResource(
-                            archivo.toUri()
-                    );
-
-
-            if (resource.exists()
-                    && resource.isReadable()) {
-
-                return resource;
-            }
-
-
-            return null;
-
-
-        } catch (MalformedURLException e) {
-
-            return null;
-        }
-    }
-
-
-    public void eliminarImagen(String nombre) {
-
-        eliminar(
-                carpetaImagenes,
-                nombre
-        );
-    }
-
-
-    public void eliminarArchivo(String nombre) {
-
-        eliminar(
-                carpetaArchivos,
-                nombre
-        );
-    }
-
-
-    private void eliminar(
-            Path carpeta,
-            String nombre) {
-
-        if (nombre == null
-                || nombre.isBlank()) {
-
-            return;
-        }
-
-
-        try {
-
-            Path archivo =
-                    carpeta
-                            .resolve(nombre)
-                            .normalize();
-
-
-            if (!archivo.startsWith(carpeta)) {
-
-                return;
-            }
-
-
-            Files.deleteIfExists(archivo);
-
-
-        } catch (IOException e) {
-
-            throw new RuntimeException(
-                    "No se pudo eliminar el archivo: "
-                            + nombre,
-                    e
-            );
-        }
+    public void eliminarArchivo(String url) {
+        // Se implementará después con public_id.
     }
 }

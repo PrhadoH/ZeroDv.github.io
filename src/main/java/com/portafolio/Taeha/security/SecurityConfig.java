@@ -59,11 +59,8 @@ public class SecurityConfig {
                                 HttpMethod.GET,
                                 "/",
                                 "/semana/**",
-                                "/publico/**",
-                                "/trabajos/imagen/**",
-                                "/trabajos/archivo/**"
+                                "/publico/**"
                         ).authenticated()
-
 
                         // ==================================
                         // RESTO
@@ -72,7 +69,6 @@ public class SecurityConfig {
                         .anyRequest()
                         .authenticated()
                 )
-
 
                 // ======================================
                 // LOGIN
@@ -87,7 +83,6 @@ public class SecurityConfig {
                         .permitAll()
                 )
 
-
                 // ======================================
                 // LOGOUT
                 // ======================================
@@ -98,7 +93,6 @@ public class SecurityConfig {
 
                         .permitAll()
                 );
-
 
         return http.build();
     }

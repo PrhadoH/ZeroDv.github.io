@@ -1113,7 +1113,7 @@
 
                         <img
                                 class="imagen-trabajo"
-                                src="${pageContext.request.contextPath}/trabajos/imagen/${trabajo.imagen}"
+                                src="${trabajo.imagen}"
                                 alt="${trabajo.titulo}">
 
                         <div class="imagen-overlay"></div>
@@ -1197,7 +1197,7 @@
 
                             <a
                                     style="${not empty trabajo.archivo ? '' : 'display:none'}"
-                                    href="${pageContext.request.contextPath}/trabajos/archivo/${trabajo.archivo}"
+                                    href="${trabajo.archivo}"
                                     target="_blank"
                                     rel="noopener noreferrer">
 
@@ -1280,11 +1280,3 @@
 </body>
 
 </html>
-
-
-
-
-
-
-
-

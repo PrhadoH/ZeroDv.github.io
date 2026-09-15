@@ -1,4 +1,5 @@
-﻿<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+﻿
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
@@ -1060,7 +1061,7 @@
                         <img
                                 class="work-image"
 
-                                src="${pageContext.request.contextPath}/trabajos/imagen/${trabajo.imagen}"
+                                src="${trabajo.imagen}"
 
                                 alt="${trabajo.titulo}">
 
@@ -1134,7 +1135,7 @@
                             <a
                                     style="${not empty trabajo.archivo ? '' : 'display:none'}"
 
-                                    href="${pageContext.request.contextPath}/trabajos/archivo/${trabajo.archivo}"
+                                    href="${trabajo.archivo}"
 
                                     target="_blank"
 
@@ -1249,6 +1250,7 @@
 </body>
 
 </html>
+
 
 
 

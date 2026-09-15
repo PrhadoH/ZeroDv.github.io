@@ -1240,7 +1240,7 @@
                                 </p>
 
                                 <img
-                                        src="${pageContext.request.contextPath}/admin/trabajos/imagen/${trabajo.imagen}"
+                                        src="${trabajo.imagen}"
                                         alt="Imagen actual del trabajo">
 
                             </div>
@@ -1303,7 +1303,7 @@
                                 </strong>
 
                                 <a
-                                        href="${pageContext.request.contextPath}/admin/trabajos/archivo/${trabajo.archivo}"
+                                        href="${trabajo.archivo}"
                                         target="_blank"
                                         rel="noopener noreferrer">
 
@@ -1382,7 +1382,3 @@
 </body>
 
 </html>
-
-
-
-

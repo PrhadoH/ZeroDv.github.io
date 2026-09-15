@@ -19,8 +19,10 @@ public class Trabajo {
     @Column(columnDefinition = "TEXT")
     private String descripcion;
 
+    @Column(length = 1000)
     private String archivo;
 
+    @Column(length = 1000)
     private String imagen;
 
     private String enlace;
