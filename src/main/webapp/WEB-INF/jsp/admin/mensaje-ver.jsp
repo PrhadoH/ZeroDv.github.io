@@ -640,7 +640,7 @@
 </head>
 
 
-<body>
+<body class="admin-control">
 
 <div class="admin-container">
 
@@ -673,7 +673,7 @@
                 </div>
 
                 <div class="topbar-title">
-                    Mensajes
+                    Signal Inbox
                 </div>
 
             </div>
@@ -701,11 +701,11 @@
         <header class="admin-header">
 
             <span class="eyebrow">
-                MESSAGE / DETAIL
+                SIGNAL / DETAIL
             </span>
 
             <h1>
-                Ver <span>mensaje.</span>
+                Signal <span>detail.</span>
             </h1>
 
             <p>
@@ -723,7 +723,7 @@
 
 
             <div class="message-tag">
-                MESSAGE RECEIVED
+                SIGNAL RECEIVED
             </div>
 
 

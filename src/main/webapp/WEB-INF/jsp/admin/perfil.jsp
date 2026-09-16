@@ -685,7 +685,7 @@
 
 </head>
 
-<body>
+<body class="admin-control">
 
 <div class="page">
 
@@ -717,11 +717,11 @@
                 <div>
 
                     <h1>
-                        Mi perfil
+                        Identity Profile
                     </h1>
 
                     <span>
-                        Información personal · Portafolio
+                        Identity data · Portafolio
                     </span>
 
                 </div>
@@ -762,12 +762,12 @@
             <div class="header">
 
                 <span class="header-label">
-                    CONFIGURACIÓN DEL PERFIL
+                    IDENTITY CONFIG
                 </span>
 
                 <h2>
-                    Mi información
-                    <span>personal.</span>
+                    Identity
+                    <span>profile.</span>
                 </h2>
 
                 <p>

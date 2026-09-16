@@ -1083,7 +1083,7 @@
 </head>
 
 
-<body>
+<body class="admin-control">
 
 
 <div class="dashboard">
@@ -1119,11 +1119,11 @@
                 <div>
 
                     <h1>
-                        Dashboard
+                        Admin Control Center
                     </h1>
 
                     <span>
-                        Centro de administración · Portafolio
+                        Security console · Portafolio
                     </span>
 
                 </div>
@@ -1178,7 +1178,7 @@
                 <div class="welcome">
 
                     <span class="intro-label">
-                        PANEL PRINCIPAL
+                        SYSTEM ENTRYPOINT
                     </span>
 
 
@@ -1210,7 +1210,7 @@
 
                     <span class="status-dot"></span>
 
-                    SISTEMA ACTIVO
+                    SYSTEM ONLINE
 
                 </div>
 
@@ -1359,11 +1359,11 @@
                     <div class="panel-header">
 
                         <h3>
-                            Resumen del portafolio
+                        System overview
                         </h3>
 
                         <span>
-                            /overview
+                            /admin-core
                         </span>
 
                     </div>
@@ -1414,7 +1414,7 @@
                         <div>
 
                             <strong>
-                                Estado de mensajes
+                            Inbox signal
                             </strong>
 
                             <p>
@@ -1447,11 +1447,11 @@
                     <div class="panel-header">
 
                         <h3>
-                            Acciones rápidas
+                            Quick access
                         </h3>
 
                         <span>
-                            /tools
+                            /modules
                         </span>
 
                     </div>

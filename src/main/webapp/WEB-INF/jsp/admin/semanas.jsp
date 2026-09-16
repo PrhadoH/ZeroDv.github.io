@@ -689,7 +689,7 @@
 
 </head>
 
-<body>
+<body class="admin-control">
 
 <div class="page">
 
@@ -722,11 +722,11 @@
         <div>
 
           <h1>
-            Semanas
+            Week Modules
           </h1>
 
           <span>
-                        Gestión académica · Portafolio
+                        Academic matrix · Portafolio
                     </span>
 
         </div>
@@ -771,12 +771,12 @@
         <div>
 
                     <span class="header-label">
-                        APRENDIZAJE ACADÉMICO
+                        ACADEMIC MODULES
                     </span>
 
           <h2>
-            Mis
-            <span>semanas.</span>
+            Week
+            <span>matrix.</span>
           </h2>
 
           <p>
@@ -795,7 +795,7 @@
                 href="${pageContext.request.contextPath}/admin/semanas/nuevo"
                 class="btn-nuevo">
 
-          Nueva semana
+          Nuevo modulo
 
         </a>
 

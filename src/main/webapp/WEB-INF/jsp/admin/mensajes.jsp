@@ -876,7 +876,7 @@
 
 </head>
 
-<body>
+<body class="admin-control">
 
 <div class="page">
 
@@ -909,11 +909,11 @@
                 <div>
 
                     <h1>
-                        Gestión de mensajes
+                        Signal Inbox
                     </h1>
 
                     <span>
-                        Bandeja de contacto · Portafolio
+                        Contact signals · Portafolio
                     </span>
 
                 </div>
@@ -956,14 +956,14 @@
             <div class="header">
 
                 <span class="header-label">
-                    BANDEJA DE CONTACTO
+                    SIGNAL MONITOR
                 </span>
 
                 <h2>
 
-                    Mis
+                    Signal
                     <span>
-                        mensajes.
+                        inbox.
                     </span>
 
                 </h2>

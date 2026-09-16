@@ -18,7 +18,7 @@
 
             <div class="brand-info">
                 <h2>AprHd</h2>
-                <span>ADMIN PANEL</span>
+                <span>SECURITY CONSOLE</span>
             </div>
         </div>
 
@@ -34,7 +34,7 @@
         </div>
 
         <div class="menu-title">
-            CONTROL CENTER
+            ACCESS MATRIX
         </div>
 
         <nav class="menu" aria-label="Navegación administrativa">
@@ -124,13 +124,13 @@
                             <path d="M14 4h5v16h-5"/>
                         </svg>
                     </span>
-                    <span class="menu-text">Cerrar sesión</span>
+                    <span class="menu-text">[ TERMINATE SESSION ]</span>
                 </button>
             </form>
 
             <div class="sidebar-version">
-                <span>SYSTEM STATUS: ONLINE</span>
-                <small>PORTFOLIO v1.0</small>
+                <span>SYSTEM ONLINE</span>
+                <small>ADMIN NODE v1.0</small>
             </div>
 
         </div>

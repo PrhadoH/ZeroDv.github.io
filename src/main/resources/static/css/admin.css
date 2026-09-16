@@ -1144,3 +1144,1903 @@ small {
         display: grid !important;
     }
 }
+
+/* =====================================================
+   CYBERSECURITY REDESIGN LAYER
+   Presentation only. Backend routes, forms and JSP values
+   remain untouched.
+   ===================================================== */
+
+:root {
+    --admin-bg: #020503;
+    --admin-bg-2: #07100a;
+    --admin-panel: rgba(3, 12, 6, 0.88);
+    --admin-panel-2: rgba(6, 18, 10, 0.78);
+    --admin-panel-3: rgba(1, 8, 5, 0.96);
+    --admin-line: rgba(88, 255, 118, 0.22);
+    --admin-line-strong: rgba(112, 255, 132, 0.58);
+    --admin-green: #70ff84;
+    --admin-green-2: #b6ffc0;
+    --admin-cyan: #4ee7ff;
+    --admin-cyan-soft: rgba(78, 231, 255, 0.12);
+    --admin-text: #effff1;
+    --admin-muted: #9ab3a1;
+    --admin-dim: #5f7768;
+    --admin-danger: #ff5f72;
+    --admin-warning: #ffd36f;
+    --sidebar-width: 306px;
+    --terminal-font: Consolas, "Courier New", monospace;
+}
+
+html {
+    min-height: 100%;
+    background: var(--admin-bg) !important;
+}
+
+body {
+    min-height: 100vh;
+    color: var(--admin-text) !important;
+    background:
+            linear-gradient(rgba(112, 255, 132, 0.035) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(112, 255, 132, 0.025) 1px, transparent 1px),
+            linear-gradient(135deg, #020503 0%, #061109 48%, #010302 100%) !important;
+    background-size: 46px 46px, 46px 46px, auto !important;
+    font-family: Inter, "Segoe UI", Arial, Helvetica, sans-serif !important;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    background:
+            linear-gradient(180deg, rgba(112, 255, 132, 0.045), transparent 16%, transparent 84%, rgba(78, 231, 255, 0.035)),
+            repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.025) 0 1px, transparent 1px 4px);
+    opacity: 0.72;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+            linear-gradient(110deg, transparent 0 19%, rgba(112, 255, 132, 0.035) 19.2%, transparent 19.8% 57%, rgba(78, 231, 255, 0.025) 57.2%, transparent 57.8%),
+            linear-gradient(180deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.64));
+}
+
+::selection {
+    color: #031006;
+    background: var(--admin-green);
+}
+
+.dashboard,
+.page,
+.admin-container {
+    min-height: 100vh !important;
+    background: transparent !important;
+}
+
+.main,
+.main-content {
+    min-height: 100vh !important;
+    margin-left: var(--sidebar-width) !important;
+    padding: 0 !important;
+    background: transparent !important;
+}
+
+.content,
+.main-content > .content-card,
+.main-content > .admin-header,
+.main-content > .admin-footer {
+    max-width: 1540px !important;
+}
+
+.content {
+    padding: clamp(22px, 3.5vw, 46px) !important;
+}
+
+/* Sidebar */
+
+.sidebar {
+    position: fixed !important;
+    inset: 16px auto 16px 16px !important;
+    width: calc(var(--sidebar-width) - 32px) !important;
+    z-index: 1000 !important;
+}
+
+.sidebar-shell {
+    position: relative !important;
+    height: 100% !important;
+    padding: 18px !important;
+    gap: 16px !important;
+    border: 1px solid var(--admin-line) !important;
+    border-radius: 8px !important;
+    background:
+            linear-gradient(180deg, rgba(2, 13, 6, 0.96), rgba(1, 4, 3, 0.97)),
+            repeating-linear-gradient(90deg, rgba(112, 255, 132, 0.04) 0 1px, transparent 1px 18px) !important;
+    box-shadow:
+            0 22px 80px rgba(0, 0, 0, 0.58),
+            inset 0 0 42px rgba(112, 255, 132, 0.035) !important;
+}
+
+.sidebar-shell::before,
+.sidebar-shell::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+}
+
+.sidebar-shell::before {
+    inset: 8px;
+    border: 1px solid rgba(112, 255, 132, 0.08);
+}
+
+.sidebar-shell::after {
+    top: 0;
+    left: 18px;
+    right: 18px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--admin-green), var(--admin-cyan), transparent);
+    animation: admin-scan 4.6s ease-in-out infinite;
+}
+
+.sidebar-header {
+    position: relative !important;
+    align-items: center !important;
+    padding: 0 0 18px !important;
+    border-bottom: 1px solid rgba(112, 255, 132, 0.14) !important;
+}
+
+.brand-icon,
+.topbar-mark,
+.brand-mark,
+.avatar,
+.admin-avatar {
+    border-radius: 6px !important;
+    color: #021205 !important;
+    background: linear-gradient(135deg, var(--admin-green-2), var(--admin-green)) !important;
+    box-shadow:
+            0 0 0 1px rgba(112, 255, 132, 0.28),
+            0 0 30px rgba(112, 255, 132, 0.22) !important;
+    font-family: var(--terminal-font) !important;
+    font-weight: 950 !important;
+}
+
+.brand-info h2 {
+    font-family: var(--terminal-font) !important;
+    font-size: 1.45rem !important;
+    letter-spacing: 0 !important;
+}
+
+.brand-info h2::before {
+    content: "> ";
+    color: var(--admin-green);
+}
+
+.brand-info span,
+.menu-title,
+.sidebar-version,
+.sidebar-version small,
+.admin-card span,
+.topbar-left span,
+.topbar-title,
+.admin-role,
+.header-label,
+.intro-label,
+.eyebrow {
+    font-family: var(--terminal-font) !important;
+    letter-spacing: 0.12em !important;
+    text-transform: uppercase !important;
+}
+
+.admin-card {
+    grid-template-columns: 42px 1fr 12px !important;
+    border-radius: 6px !important;
+    border: 1px solid rgba(112, 255, 132, 0.18) !important;
+    background:
+            linear-gradient(90deg, rgba(112, 255, 132, 0.09), rgba(78, 231, 255, 0.025)) !important;
+}
+
+.online-dot,
+.status-dot {
+    width: 10px !important;
+    height: 10px !important;
+    background: var(--admin-green) !important;
+    box-shadow: 0 0 16px rgba(112, 255, 132, 0.9) !important;
+    animation: admin-pulse 1.8s ease-in-out infinite;
+}
+
+.menu {
+    gap: 9px !important;
+}
+
+.menu-item,
+.logout-button {
+    min-height: 54px !important;
+    grid-template-columns: 40px 1fr auto !important;
+    border-radius: 6px !important;
+    border: 1px solid transparent !important;
+    color: rgba(239, 255, 241, 0.78) !important;
+    background: linear-gradient(90deg, rgba(112, 255, 132, 0.035), transparent) !important;
+    font-family: var(--terminal-font) !important;
+    letter-spacing: 0.02em !important;
+}
+
+.menu-item::after,
+.logout-button::after {
+    content: "";
+    position: absolute;
+    right: 10px;
+    width: 6px;
+    height: 6px;
+    border-top: 1px solid currentColor;
+    border-right: 1px solid currentColor;
+    opacity: 0;
+    transform: rotate(45deg) translateX(-4px);
+    transition: 0.2s ease;
+}
+
+.menu-item:hover,
+.logout-button:hover,
+.menu-item.active {
+    color: #ffffff !important;
+    border-color: rgba(112, 255, 132, 0.34) !important;
+    background:
+            linear-gradient(90deg, rgba(112, 255, 132, 0.16), rgba(78, 231, 255, 0.05)) !important;
+    box-shadow: inset 0 0 26px rgba(112, 255, 132, 0.055), 0 0 22px rgba(112, 255, 132, 0.08) !important;
+    transform: translateX(4px) !important;
+}
+
+.menu-item:hover::after,
+.logout-button:hover::after,
+.menu-item.active::after {
+    opacity: 0.65;
+    transform: rotate(45deg) translateX(0);
+}
+
+.menu-icon {
+    width: 38px !important;
+    height: 38px !important;
+    border-radius: 5px !important;
+    color: var(--admin-green) !important;
+    border-color: rgba(112, 255, 132, 0.2) !important;
+    background: rgba(112, 255, 132, 0.065) !important;
+}
+
+.logout-button {
+    color: #ffc6ce !important;
+}
+
+.logout-button:hover {
+    border-color: rgba(255, 95, 114, 0.42) !important;
+    background: rgba(255, 95, 114, 0.095) !important;
+}
+
+.logout-button .menu-icon {
+    color: var(--admin-danger) !important;
+    border-color: rgba(255, 95, 114, 0.28) !important;
+    background: rgba(255, 95, 114, 0.09) !important;
+}
+
+.message-badge,
+.badge-nuevo {
+    color: #021205 !important;
+    background: var(--admin-green) !important;
+    box-shadow: 0 0 18px rgba(112, 255, 132, 0.2) !important;
+}
+
+.sidebar-version {
+    border-radius: 6px !important;
+    border-color: rgba(112, 255, 132, 0.18) !important;
+    background: rgba(0, 0, 0, 0.30) !important;
+}
+
+/* Topbars and headers */
+
+.topbar {
+    min-height: 88px !important;
+    height: auto !important;
+    padding: 18px clamp(20px, 3.4vw, 46px) !important;
+    border-bottom: 1px solid rgba(112, 255, 132, 0.16) !important;
+    background: rgba(1, 7, 4, 0.76) !important;
+    backdrop-filter: blur(16px) !important;
+    box-shadow: 0 18px 55px rgba(0, 0, 0, 0.34) !important;
+}
+
+.topbar-left h1,
+.topbar-title {
+    color: #ffffff !important;
+    font-family: var(--terminal-font) !important;
+    letter-spacing: 0 !important;
+}
+
+.topbar-left h1::before,
+.topbar-title::before {
+    content: "> ";
+    color: var(--admin-green);
+}
+
+.topbar-left span {
+    color: var(--admin-muted) !important;
+}
+
+.admin-name {
+    color: #ffffff !important;
+}
+
+.header,
+.dashboard-intro,
+.admin-header {
+    position: relative !important;
+    margin-bottom: 26px !important;
+    padding: clamp(24px, 4vw, 42px) !important;
+    border: 1px solid rgba(112, 255, 132, 0.2) !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    background:
+            linear-gradient(135deg, rgba(7, 20, 10, 0.88), rgba(1, 7, 4, 0.94)),
+            repeating-linear-gradient(90deg, rgba(112, 255, 132, 0.032) 0 1px, transparent 1px 24px) !important;
+    box-shadow: 0 24px 76px rgba(0, 0, 0, 0.38), inset 0 0 38px rgba(112, 255, 132, 0.035) !important;
+}
+
+.header::before,
+.dashboard-intro::before,
+.admin-header::before,
+.panel::before,
+.form-container::before,
+.content-card::before,
+.tabla-container::before,
+.table-container::before {
+    content: "" !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 18px !important;
+    right: 18px !important;
+    width: auto !important;
+    height: 2px !important;
+    background: linear-gradient(90deg, transparent, var(--admin-green), var(--admin-cyan), transparent) !important;
+    opacity: 0.58 !important;
+}
+
+.header::after,
+.dashboard-intro::after,
+.admin-header::after {
+    content: "SECURE_ADMIN_INTERFACE" !important;
+    position: absolute !important;
+    right: 22px !important;
+    bottom: 18px !important;
+    width: auto !important;
+    height: auto !important;
+    color: rgba(112, 255, 132, 0.18) !important;
+    background: transparent !important;
+    font: 850 0.68rem var(--terminal-font) !important;
+    letter-spacing: 0.14em !important;
+}
+
+.welcome h2,
+.header h2,
+.admin-header h1,
+.contact-heading h2 {
+    color: #ffffff !important;
+    font-family: var(--terminal-font) !important;
+    font-size: clamp(2rem, 4.8vw, 4.85rem) !important;
+    line-height: 0.96 !important;
+    letter-spacing: 0 !important;
+    text-shadow: 0 0 26px rgba(112, 255, 132, 0.12) !important;
+}
+
+.welcome h2::before,
+.header h2::before,
+.admin-header h1::before {
+    content: "> ";
+    color: var(--admin-green);
+}
+
+.welcome h2 span,
+.header h2 span,
+.admin-header h1 span,
+.header-label,
+.intro-label,
+.eyebrow {
+    color: var(--admin-green) !important;
+}
+
+.welcome p,
+.header p,
+.admin-header p,
+.panel p,
+.content-card p,
+.empty p,
+.empty-state p,
+.vacio p {
+    color: var(--admin-muted) !important;
+    line-height: 1.75 !important;
+}
+
+.system-status,
+.info-code,
+.message-count,
+.semana-badge,
+.work-tag,
+.estado,
+.badge-leido {
+    border-radius: 999px !important;
+    border: 1px solid rgba(112, 255, 132, 0.24) !important;
+    color: var(--admin-green) !important;
+    background: rgba(112, 255, 132, 0.08) !important;
+    font-family: var(--terminal-font) !important;
+}
+
+/* Cards, dashboard modules and data panels */
+
+.stats {
+    display: grid !important;
+    grid-template-columns: minmax(260px, 1.25fr) repeat(3, minmax(170px, 1fr)) !important;
+    gap: 16px !important;
+    margin: 24px 0 !important;
+}
+
+.stat-card,
+.panel,
+.content-card,
+.form-container,
+.tabla-container,
+.table-container,
+.info-bar,
+.semana-info,
+.message-card,
+.metadata-card,
+.message-body,
+.week-card,
+.trabajo-card,
+.work-card,
+.empty,
+.empty-state,
+.vacio,
+.foto-box,
+.archivo-box,
+.foto-actual,
+.profile-preview {
+    position: relative !important;
+    border: 1px solid rgba(112, 255, 132, 0.18) !important;
+    border-radius: 8px !important;
+    background:
+            linear-gradient(145deg, rgba(5, 18, 9, 0.88), rgba(1, 6, 4, 0.96)) !important;
+    box-shadow:
+            0 24px 76px rgba(0, 0, 0, 0.38),
+            inset 0 0 34px rgba(112, 255, 132, 0.025) !important;
+}
+
+.stat-card,
+.panel,
+.content-card,
+.form-container,
+.tabla-container,
+.week-card,
+.trabajo-card {
+    overflow: hidden !important;
+}
+
+.stat-card::after,
+.panel::after,
+.content-card::after,
+.form-container::after,
+.tabla-container::after,
+.week-card::after,
+.trabajo-card::after {
+    content: "" !important;
+    position: absolute !important;
+    right: 14px !important;
+    bottom: 14px !important;
+    width: 58px !important;
+    height: 58px !important;
+    border-right: 1px solid rgba(112, 255, 132, 0.22) !important;
+    border-bottom: 1px solid rgba(112, 255, 132, 0.22) !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    opacity: 0.7 !important;
+}
+
+.stat-card:hover,
+.panel:hover,
+.week-card:hover,
+.trabajo-card:hover,
+.quick-action:hover {
+    border-color: var(--admin-line-strong) !important;
+    transform: translateY(-4px) !important;
+    box-shadow:
+            0 30px 90px rgba(0, 0, 0, 0.48),
+            0 0 34px rgba(112, 255, 132, 0.11),
+            inset 0 0 38px rgba(112, 255, 132, 0.035) !important;
+}
+
+.stat-card {
+    min-height: 198px !important;
+    padding: 24px !important;
+}
+
+.stat-card:first-child {
+    grid-row: span 2 !important;
+}
+
+.stat-icon,
+.quick-icon,
+.info-icon,
+.form-intro-icon,
+.message-status-icon,
+.empty-icon,
+.vacio-icon,
+.sin-imagen-icon,
+.project-icon,
+.semana-numero {
+    display: grid !important;
+    place-items: center !important;
+    border-radius: 6px !important;
+    color: var(--admin-green) !important;
+    border: 1px solid rgba(112, 255, 132, 0.24) !important;
+    background: rgba(112, 255, 132, 0.07) !important;
+    font-family: var(--terminal-font) !important;
+    text-shadow: 0 0 16px rgba(112, 255, 132, 0.26) !important;
+}
+
+.stat-icon::before,
+.quick-icon::before,
+.info-icon::before,
+.form-intro-icon::before,
+.message-status-icon::before,
+.project-icon::before {
+    content: "[]";
+    width: auto;
+    height: auto;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    color: currentColor;
+    font: 900 1rem var(--terminal-font);
+}
+
+.stat-code,
+.stat-label,
+.panel-header span,
+.trabajo-meta,
+.week-number,
+.week-code,
+.message-tag,
+.detail-label,
+.fecha,
+.date-value,
+.numero,
+.week-big-number {
+    font-family: var(--terminal-font) !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+}
+
+.stat-number,
+.week-big-number {
+    color: #ffffff !important;
+    font-family: var(--terminal-font) !important;
+    text-shadow: 0 0 24px rgba(112, 255, 132, 0.20) !important;
+}
+
+.stat-number {
+    font-size: clamp(3.1rem, 5.8vw, 6.1rem) !important;
+}
+
+.dashboard-grid {
+    grid-template-columns: minmax(0, 1.15fr) minmax(310px, 0.85fr) !important;
+    gap: 16px !important;
+}
+
+.summary-number {
+    border-radius: 6px !important;
+    border-color: rgba(78, 231, 255, 0.24) !important;
+    background: rgba(78, 231, 255, 0.06) !important;
+}
+
+.summary-number strong {
+    color: var(--admin-cyan) !important;
+    font-family: var(--terminal-font) !important;
+}
+
+.message-status,
+.form-intro,
+.archivo-actual {
+    border-radius: 6px !important;
+    border: 1px solid rgba(78, 231, 255, 0.18) !important;
+    background: rgba(78, 231, 255, 0.055) !important;
+}
+
+.quick-actions {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+}
+
+.quick-action,
+.recursos a,
+.view-button {
+    border-radius: 6px !important;
+    border: 1px solid rgba(112, 255, 132, 0.18) !important;
+    background: rgba(112, 255, 132, 0.055) !important;
+}
+
+.quick-action strong,
+.week-card h2,
+.trabajo-body h2,
+.card-header h3,
+.empty h2,
+.empty-state h3,
+.vacio h2,
+.seccion h2,
+.form-intro strong,
+.detail-item strong {
+    color: #ffffff !important;
+}
+
+/* Tables */
+
+.table-container,
+.tabla-container {
+    padding: clamp(16px, 2.2vw, 26px) !important;
+    overflow-x: auto !important;
+}
+
+table {
+    width: 100% !important;
+    border-collapse: separate !important;
+    border-spacing: 0 10px !important;
+    background: transparent !important;
+}
+
+thead,
+thead tr,
+th {
+    background: transparent !important;
+}
+
+th {
+    padding: 12px 16px !important;
+    border: 0 !important;
+    color: var(--admin-dim) !important;
+    font: 900 0.72rem var(--terminal-font) !important;
+    letter-spacing: 0.12em !important;
+    text-transform: uppercase !important;
+}
+
+tbody tr {
+    background: rgba(5, 18, 9, 0.72) !important;
+    transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+tbody tr:hover {
+    background: rgba(112, 255, 132, 0.07) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.22);
+}
+
+td {
+    padding: 16px !important;
+    color: var(--admin-text) !important;
+    border-top: 1px solid rgba(112, 255, 132, 0.13) !important;
+    border-bottom: 1px solid rgba(112, 255, 132, 0.13) !important;
+}
+
+td:first-child {
+    border-left: 1px solid rgba(112, 255, 132, 0.13) !important;
+    border-radius: 6px 0 0 6px !important;
+}
+
+td:last-child {
+    border-right: 1px solid rgba(112, 255, 132, 0.13) !important;
+    border-radius: 0 6px 6px 0 !important;
+}
+
+td a,
+.detail-item a,
+.recursos a {
+    color: var(--admin-cyan) !important;
+}
+
+td a:hover,
+.detail-item a:hover,
+.recursos a:hover {
+    color: var(--admin-green) !important;
+}
+
+.mensaje-no-leido {
+    box-shadow: inset 4px 0 0 var(--admin-green) !important;
+}
+
+.mensaje-texto span {
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden !important;
+    white-space: normal !important;
+}
+
+/* Forms and actions */
+
+.form-container {
+    padding: clamp(22px, 3.5vw, 40px) !important;
+}
+
+.seccion {
+    margin-bottom: 22px !important;
+    padding: 22px !important;
+    border: 1px solid rgba(112, 255, 132, 0.14) !important;
+    border-radius: 6px !important;
+    background: rgba(0, 0, 0, 0.20) !important;
+}
+
+.seccion h2::before {
+    width: auto !important;
+    height: auto !important;
+    background: transparent !important;
+    content: ">";
+    color: var(--admin-green);
+    font-family: var(--terminal-font);
+}
+
+.fila {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 16px !important;
+}
+
+.campo,
+.form-group {
+    display: grid !important;
+    gap: 8px !important;
+    margin-bottom: 18px !important;
+}
+
+label {
+    color: var(--admin-muted) !important;
+    font: 900 0.74rem var(--terminal-font) !important;
+    letter-spacing: 0.09em !important;
+    text-transform: uppercase !important;
+}
+
+label::before {
+    content: "$ ";
+    color: var(--admin-green);
+}
+
+input,
+textarea,
+select {
+    width: 100% !important;
+    border: 1px solid rgba(112, 255, 132, 0.20) !important;
+    border-radius: 6px !important;
+    color: var(--admin-text) !important;
+    background: rgba(0, 0, 0, 0.42) !important;
+    outline: none !important;
+    caret-color: var(--admin-green) !important;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease !important;
+}
+
+input,
+select {
+    min-height: 48px !important;
+    padding: 0 15px !important;
+}
+
+textarea {
+    min-height: 150px !important;
+    padding: 14px 15px !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--admin-line-strong) !important;
+    background: rgba(0, 0, 0, 0.56) !important;
+    box-shadow: 0 0 0 3px rgba(112, 255, 132, 0.10), 0 0 28px rgba(112, 255, 132, 0.08) !important;
+}
+
+input[type="file"]::file-selector-button {
+    margin-right: 12px !important;
+    border: 1px solid rgba(112, 255, 132, 0.28) !important;
+    border-radius: 5px !important;
+    color: #021205 !important;
+    background: var(--admin-green) !important;
+    font-weight: 900 !important;
+    cursor: pointer !important;
+}
+
+.btn,
+.btn-nuevo,
+.btn-action,
+.view-button,
+.btn-guardar,
+.btn-cancelar,
+.btn-trabajos,
+.btn-editar,
+.btn-eliminar,
+.btn-view,
+.btn-delete,
+.btn-send,
+.btn-cancel,
+.btn-volver,
+.btn-primary,
+.btn-secondary {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    min-height: 42px !important;
+    padding: 0 15px !important;
+    border-radius: 6px !important;
+    border: 1px solid rgba(112, 255, 132, 0.26) !important;
+    color: var(--admin-green) !important;
+    background: rgba(112, 255, 132, 0.08) !important;
+    font-family: var(--terminal-font) !important;
+    font-weight: 900 !important;
+    text-decoration: none !important;
+    cursor: pointer !important;
+    transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.btn::before,
+.btn-nuevo::before,
+.btn-action::before,
+.btn-volver::before,
+.btn-primary::before,
+.btn-secondary::before {
+    content: "[";
+    opacity: 0.72;
+}
+
+.btn::after,
+.btn-nuevo::after,
+.btn-action::after,
+.btn-volver::after,
+.btn-primary::after,
+.btn-secondary::after {
+    content: "]";
+    opacity: 0.72;
+}
+
+.btn:hover,
+.btn-nuevo:hover,
+.btn-action:hover,
+.view-button:hover,
+.btn-primary:hover,
+.btn-secondary:hover {
+    transform: translateY(-2px) !important;
+    border-color: var(--admin-line-strong) !important;
+    background: rgba(112, 255, 132, 0.14) !important;
+    box-shadow: 0 0 24px rgba(112, 255, 132, 0.10) !important;
+}
+
+.btn-guardar,
+.btn-nuevo,
+.btn-send,
+.btn-primary {
+    color: #021205 !important;
+    background: linear-gradient(135deg, var(--admin-green-2), var(--admin-green)) !important;
+    box-shadow: 0 0 24px rgba(112, 255, 132, 0.18) !important;
+}
+
+.btn-cancelar,
+.btn-cancel,
+.btn-volver,
+.btn-secondary {
+    color: #d5e3d8 !important;
+    border-color: rgba(255, 255, 255, 0.14) !important;
+    background: rgba(255, 255, 255, 0.055) !important;
+}
+
+.btn-eliminar,
+.btn-delete {
+    color: #ffc6ce !important;
+    border-color: rgba(255, 95, 114, 0.30) !important;
+    background: rgba(255, 95, 114, 0.09) !important;
+}
+
+.btn-view,
+.btn-trabajos,
+.btn-editar {
+    color: var(--admin-cyan) !important;
+    border-color: rgba(78, 231, 255, 0.25) !important;
+    background: rgba(78, 231, 255, 0.08) !important;
+}
+
+/* Weeks, works and message detail */
+
+.weeks-grid,
+.trabajos-container,
+.works-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)) !important;
+    gap: 16px !important;
+}
+
+.week-card,
+.trabajo-card,
+.work-card {
+    min-height: 250px !important;
+    text-decoration: none !important;
+    transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease !important;
+}
+
+.week-card {
+    padding: 24px !important;
+}
+
+.trabajo-card {
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.imagen-wrapper,
+.sin-imagen {
+    background:
+            linear-gradient(135deg, rgba(112, 255, 132, 0.08), rgba(78, 231, 255, 0.04)),
+            repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 12px) !important;
+}
+
+.imagen-trabajo {
+    height: 220px !important;
+    filter: saturate(0.92) contrast(1.05) !important;
+}
+
+.trabajo-card:hover .imagen-trabajo {
+    transform: scale(1.045) !important;
+    filter: saturate(1.06) contrast(1.12) brightness(1.04) !important;
+}
+
+.trabajo-body {
+    padding: 24px !important;
+}
+
+.week-number,
+.work-tag {
+    color: #021205 !important;
+    border-color: rgba(112, 255, 132, 0.34) !important;
+    background: var(--admin-green) !important;
+}
+
+.week-big-number {
+    color: rgba(112, 255, 132, 0.11) !important;
+    font-size: clamp(4.4rem, 9vw, 7rem) !important;
+}
+
+.message-content,
+.message-body {
+    padding: clamp(22px, 3vw, 34px) !important;
+    border-left: 2px solid var(--admin-green) !important;
+    color: var(--admin-text) !important;
+    background:
+            linear-gradient(145deg, rgba(2, 12, 6, 0.92), rgba(0, 0, 0, 0.48)) !important;
+    line-height: 1.85 !important;
+}
+
+.detail-item {
+    border-bottom-color: rgba(112, 255, 132, 0.13) !important;
+}
+
+.main-content > .topbar,
+.main-content > .admin-header,
+.main-content > .content-card,
+.main-content > .admin-footer {
+    margin-left: clamp(20px, 3.4vw, 46px) !important;
+    margin-right: clamp(20px, 3.4vw, 46px) !important;
+}
+
+.main-content > .topbar {
+    margin-bottom: 26px !important;
+}
+
+.main-content > .content-card {
+    max-width: 1060px !important;
+}
+
+.admin-footer,
+.footer,
+.dashboard-footer {
+    border-top: 1px solid rgba(112, 255, 132, 0.12) !important;
+    color: var(--admin-dim) !important;
+    font-family: var(--terminal-font) !important;
+    letter-spacing: 0.08em !important;
+}
+
+.admin-footer strong,
+.footer strong,
+.dashboard-footer strong {
+    color: var(--admin-green) !important;
+}
+
+/* Motion */
+
+@keyframes admin-scan {
+    0%, 100% {
+        opacity: 0.25;
+        transform: translateX(-8px);
+    }
+    50% {
+        opacity: 0.72;
+        transform: translateX(8px);
+    }
+}
+
+@keyframes admin-pulse {
+    0%, 100% {
+        opacity: 0.62;
+        transform: scale(0.92);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.12);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.001ms !important;
+    }
+}
+
+/* Responsive */
+
+@media (max-width: 1180px) {
+    :root {
+        --sidebar-width: 96px;
+    }
+
+    .sidebar {
+        width: 78px !important;
+    }
+
+    .sidebar-shell {
+        padding: 12px !important;
+        align-items: center !important;
+    }
+
+    .brand-info,
+    .admin-card .admin-info,
+    .menu-title,
+    .menu-text,
+    .sidebar-version,
+    .message-badge {
+        display: none !important;
+    }
+
+    .admin-card,
+    .menu-item,
+    .logout-button {
+        grid-template-columns: 1fr !important;
+        place-items: center !important;
+        padding: 8px !important;
+    }
+
+    .stats,
+    .dashboard-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .stat-card:first-child {
+        grid-row: auto !important;
+    }
+}
+
+@media (max-width: 780px) {
+    :root {
+        --sidebar-width: 0px;
+    }
+
+    .main,
+    .main-content {
+        margin-left: 0 !important;
+    }
+
+    .sidebar {
+        inset: 14px auto auto 14px !important;
+        width: auto !important;
+        height: auto !important;
+    }
+
+    .admin-menu-toggle {
+        display: grid !important;
+        place-items: center !important;
+        width: 48px !important;
+        height: 48px !important;
+        border: 1px solid var(--admin-line-strong) !important;
+        border-radius: 6px !important;
+        color: var(--admin-green) !important;
+        background: rgba(2, 12, 6, 0.94) !important;
+        box-shadow: 0 18px 48px rgba(0, 0, 0, 0.45), 0 0 20px rgba(112, 255, 132, 0.10) !important;
+    }
+
+    .sidebar-shell {
+        position: fixed !important;
+        top: 74px !important;
+        left: 14px !important;
+        right: 14px !important;
+        width: auto !important;
+        height: auto !important;
+        max-height: calc(100vh - 94px) !important;
+        align-items: stretch !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        transform: translateY(-10px) !important;
+        transition: opacity 0.2s ease, transform 0.2s ease !important;
+    }
+
+    .sidebar.is-open .sidebar-shell {
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        transform: translateY(0) !important;
+    }
+
+    .brand-info,
+    .admin-card .admin-info,
+    .menu-title,
+    .menu-text,
+    .sidebar-version,
+    .message-badge {
+        display: block !important;
+    }
+
+    .menu-item,
+    .logout-button,
+    .admin-card {
+        grid-template-columns: 42px 1fr auto !important;
+        place-items: initial !important;
+    }
+
+    .topbar {
+        padding-left: 78px !important;
+    }
+
+    .topbar .admin-info,
+    .admin-name {
+        display: none !important;
+    }
+
+    .content,
+    .main-content {
+        padding: 18px !important;
+    }
+
+    .main-content > .topbar,
+    .main-content > .admin-header,
+    .main-content > .content-card,
+    .main-content > .admin-footer {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    .stats,
+    .dashboard-grid,
+    .summary-layout,
+    .fila,
+    .foto-box,
+    .weeks-grid,
+    .trabajos-container {
+        grid-template-columns: 1fr !important;
+    }
+
+    table,
+    thead,
+    tbody,
+    tr,
+    th,
+    td {
+        display: block !important;
+    }
+
+    thead {
+        display: none !important;
+    }
+
+    tbody tr {
+        margin-bottom: 14px !important;
+        padding: 12px !important;
+        border: 1px solid rgba(112, 255, 132, 0.16) !important;
+        border-radius: 8px !important;
+    }
+
+    td,
+    td:first-child,
+    td:last-child {
+        border: 0 !important;
+        border-radius: 0 !important;
+        padding: 9px 6px !important;
+    }
+
+    .footer,
+    .dashboard-footer,
+    .info-bar,
+    .card-header,
+    .botones,
+    .acciones,
+    .detail-actions {
+        display: grid !important;
+        align-items: stretch !important;
+    }
+
+    .btn,
+    .btn-nuevo,
+    .btn-action,
+    .btn-volver,
+    .btn-primary,
+    .btn-secondary {
+        width: 100% !important;
+    }
+}
+
+@media (max-width: 520px) {
+    .topbar-mark,
+    .brand-mark {
+        display: none !important;
+    }
+
+    .topbar-left h1,
+    .topbar-title {
+        font-size: 1rem !important;
+    }
+
+    .topbar-left span {
+        display: none !important;
+    }
+
+    .header,
+    .dashboard-intro,
+    .admin-header,
+    .form-container,
+    .content-card,
+    .tabla-container {
+        padding: 20px !important;
+    }
+
+    .welcome h2,
+    .header h2,
+    .admin-header h1 {
+        font-size: 2rem !important;
+    }
+
+    .stat-number {
+        font-size: 3rem !important;
+    }
+}
+
+/* =====================================================
+   ADMIN-ONLY REFERENCE POLISH
+   Scoped to body.admin-control so public pages and login
+   remain visually isolated.
+   ===================================================== */
+
+body.admin-control {
+    --ref-black: #000704;
+    --ref-panel: rgba(0, 18, 9, 0.86);
+    --ref-panel-soft: rgba(0, 34, 17, 0.62);
+    --ref-green: #00ff66;
+    --ref-green-hot: #85ff9c;
+    --ref-cyan: #00e5ff;
+    --ref-line: rgba(0, 255, 102, 0.24);
+    --ref-line-hot: rgba(0, 255, 102, 0.64);
+    --ref-muted: #85a991;
+    --sidebar-width: 318px;
+    background:
+            radial-gradient(circle at 15% 8%, rgba(0, 255, 102, 0.10), transparent 26%),
+            radial-gradient(circle at 82% 20%, rgba(0, 229, 255, 0.08), transparent 28%),
+            linear-gradient(rgba(0, 255, 102, 0.045) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 255, 102, 0.03) 1px, transparent 1px),
+            #000704 !important;
+    background-size: auto, auto, 38px 38px, 38px 38px, auto !important;
+}
+
+body.admin-control::before {
+    background:
+            repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 5px),
+            linear-gradient(90deg, rgba(0, 255, 102, 0.10), transparent 18%, transparent 82%, rgba(0, 229, 255, 0.08)) !important;
+    opacity: 0.58 !important;
+}
+
+body.admin-control .dashboard,
+body.admin-control .page,
+body.admin-control .admin-container {
+    isolation: isolate;
+}
+
+body.admin-control .dashboard::before,
+body.admin-control .page::before,
+body.admin-control .admin-container::before {
+    content: "ANTONIO // AprHd";
+    position: fixed;
+    right: clamp(18px, 4vw, 54px);
+    top: 108px;
+    z-index: -1;
+    color: rgba(0, 255, 102, 0.07);
+    font: 950 clamp(2.8rem, 9vw, 9rem) var(--terminal-font);
+    letter-spacing: 0.02em;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+body.admin-control .main,
+body.admin-control .main-content {
+    position: relative !important;
+}
+
+body.admin-control .main::before,
+body.admin-control .main-content::before {
+    content: "ADMIN CONTROL SYSTEM / SYSTEM ONLINE / ANTONIO // AprHd";
+    position: sticky;
+    top: 88px;
+    z-index: 70;
+    display: block;
+    margin: 0;
+    padding: 8px clamp(20px, 3.4vw, 46px);
+    border-bottom: 1px solid rgba(0, 255, 102, 0.16);
+    color: rgba(133, 255, 156, 0.68);
+    background: rgba(0, 7, 4, 0.78);
+    backdrop-filter: blur(12px);
+    font: 850 0.68rem var(--terminal-font);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+body.admin-control .sidebar {
+    inset: 12px auto 12px 12px !important;
+    width: calc(var(--sidebar-width) - 24px) !important;
+}
+
+body.admin-control .sidebar-shell {
+    border-radius: 0 !important;
+    border-color: rgba(0, 255, 102, 0.30) !important;
+    background:
+            linear-gradient(180deg, rgba(0, 20, 10, 0.96), rgba(0, 4, 2, 0.98)),
+            linear-gradient(90deg, rgba(0, 255, 102, 0.08), transparent 32%),
+            repeating-linear-gradient(0deg, rgba(0, 255, 102, 0.035) 0 1px, transparent 1px 20px) !important;
+    box-shadow:
+            0 0 0 1px rgba(0, 255, 102, 0.08),
+            18px 0 80px rgba(0, 0, 0, 0.70),
+            inset 0 0 44px rgba(0, 255, 102, 0.055) !important;
+}
+
+body.admin-control .sidebar-shell::before {
+    inset: 10px;
+    border-color: rgba(0, 255, 102, 0.10);
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%);
+}
+
+body.admin-control .brand-icon {
+    width: 58px !important;
+    height: 58px !important;
+    border-radius: 0 !important;
+    font-size: 1.05rem !important;
+}
+
+body.admin-control .brand-info h2 {
+    font-size: 1.65rem !important;
+}
+
+body.admin-control .brand-info span {
+    color: var(--ref-green) !important;
+}
+
+body.admin-control .admin-card {
+    border-radius: 0 !important;
+    border-color: rgba(0, 255, 102, 0.28) !important;
+    background:
+            linear-gradient(90deg, rgba(0, 255, 102, 0.14), rgba(0, 229, 255, 0.04)) !important;
+}
+
+body.admin-control .admin-card strong::after {
+    content: " // AprHd";
+    color: var(--ref-green);
+    font-family: var(--terminal-font);
+    font-size: 0.75rem;
+}
+
+body.admin-control .menu-title {
+    display: flex !important;
+    align-items: center;
+    gap: 10px;
+    color: var(--ref-green) !important;
+}
+
+body.admin-control .menu-title::before,
+body.admin-control .menu-title::after {
+    content: "";
+    height: 1px;
+    flex: 1;
+    background: rgba(0, 255, 102, 0.20);
+}
+
+body.admin-control .menu-item,
+body.admin-control .logout-button {
+    min-height: 56px !important;
+    border-radius: 0 !important;
+    border-color: rgba(0, 255, 102, 0.10) !important;
+    background: rgba(0, 0, 0, 0.20) !important;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+}
+
+body.admin-control .menu-item.active,
+body.admin-control .menu-item:hover {
+    color: #ffffff !important;
+    border-color: var(--ref-line-hot) !important;
+    background:
+            linear-gradient(90deg, rgba(0, 255, 102, 0.20), rgba(0, 229, 255, 0.06)) !important;
+}
+
+body.admin-control .menu-item.active .menu-text::before {
+    content: "[ACTIVE] ";
+    color: var(--ref-green);
+}
+
+body.admin-control .logout-button {
+    border-color: rgba(255, 95, 114, 0.24) !important;
+}
+
+body.admin-control .sidebar-version {
+    border-radius: 0 !important;
+    color: var(--ref-muted) !important;
+}
+
+body.admin-control .sidebar-version::before {
+    content: "ANTONIO // AprHd";
+    display: block;
+    margin-bottom: 7px;
+    color: var(--ref-green);
+}
+
+body.admin-control .topbar {
+    min-height: 96px !important;
+    border-color: rgba(0, 255, 102, 0.18) !important;
+    background:
+            linear-gradient(90deg, rgba(0, 20, 10, 0.88), rgba(0, 5, 3, 0.76)),
+            repeating-linear-gradient(90deg, rgba(0, 255, 102, 0.04) 0 1px, transparent 1px 18px) !important;
+}
+
+body.admin-control .topbar::after {
+    content: "SYSTEM ONLINE";
+    display: inline-flex;
+    align-items: center;
+    min-height: 34px;
+    padding: 0 12px;
+    border: 1px solid rgba(0, 255, 102, 0.30);
+    color: var(--ref-green);
+    background: rgba(0, 255, 102, 0.08);
+    font: 900 0.7rem var(--terminal-font);
+    letter-spacing: 0.14em;
+}
+
+body.admin-control .topbar-left h1,
+body.admin-control .topbar-title {
+    font-size: clamp(1.25rem, 2vw, 1.75rem) !important;
+}
+
+body.admin-control .topbar-left span {
+    color: var(--ref-muted) !important;
+}
+
+body.admin-control .admin::before,
+body.admin-control .topbar-right::before {
+    content: "ADMINISTRADOR";
+    color: var(--ref-green);
+    font: 850 0.68rem var(--terminal-font);
+    letter-spacing: 0.14em;
+}
+
+body.admin-control .dashboard-intro,
+body.admin-control .header,
+body.admin-control .admin-header {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    align-items: end !important;
+    gap: 24px !important;
+    min-height: clamp(230px, 28vw, 360px) !important;
+    border-radius: 0 !important;
+    border-color: rgba(0, 255, 102, 0.28) !important;
+    background:
+            radial-gradient(circle at 78% 18%, rgba(0, 229, 255, 0.13), transparent 28%),
+            radial-gradient(circle at 12% 84%, rgba(0, 255, 102, 0.14), transparent 30%),
+            linear-gradient(135deg, rgba(0, 20, 10, 0.94), rgba(0, 3, 2, 0.98)),
+            repeating-linear-gradient(90deg, rgba(0, 255, 102, 0.036) 0 1px, transparent 1px 24px) !important;
+    clip-path: polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 28px 100%, 0 calc(100% - 28px));
+}
+
+body.admin-control .dashboard-intro::after,
+body.admin-control .header::after,
+body.admin-control .admin-header::after {
+    content: "ANTONIO // AprHd // ADMIN CONTROL SYSTEM" !important;
+    right: 26px !important;
+    bottom: 24px !important;
+    color: rgba(0, 255, 102, 0.25) !important;
+}
+
+body.admin-control .intro-label,
+body.admin-control .header-label,
+body.admin-control .eyebrow {
+    display: inline-flex !important;
+    width: fit-content;
+    margin-bottom: 16px !important;
+    padding: 7px 10px;
+    border: 1px solid rgba(0, 255, 102, 0.24);
+    background: rgba(0, 255, 102, 0.08);
+}
+
+body.admin-control .welcome h2,
+body.admin-control .header h2,
+body.admin-control .admin-header h1 {
+    max-width: 920px;
+    font-size: clamp(2.5rem, 6vw, 6.6rem) !important;
+}
+
+body.admin-control .welcome p,
+body.admin-control .header p,
+body.admin-control .admin-header p {
+    max-width: 760px !important;
+    color: #a9c7b0 !important;
+    font-size: 0.96rem !important;
+}
+
+body.admin-control .system-status {
+    align-self: start;
+    border-radius: 0 !important;
+    border-color: rgba(0, 255, 102, 0.34) !important;
+    color: var(--ref-green) !important;
+    background: rgba(0, 255, 102, 0.10) !important;
+}
+
+body.admin-control .stats {
+    grid-template-columns: minmax(280px, 1.4fr) repeat(3, minmax(180px, 1fr)) !important;
+    gap: 14px !important;
+}
+
+body.admin-control .stat-card,
+body.admin-control .panel,
+body.admin-control .content-card,
+body.admin-control .form-container,
+body.admin-control .tabla-container,
+body.admin-control .table-container,
+body.admin-control .info-bar,
+body.admin-control .semana-info,
+body.admin-control .week-card,
+body.admin-control .trabajo-card,
+body.admin-control .empty,
+body.admin-control .empty-state,
+body.admin-control .vacio,
+body.admin-control .foto-box,
+body.admin-control .archivo-box,
+body.admin-control .message-content,
+body.admin-control .message-body {
+    border-radius: 0 !important;
+    border-color: rgba(0, 255, 102, 0.22) !important;
+    background:
+            linear-gradient(145deg, rgba(0, 19, 10, 0.88), rgba(0, 5, 3, 0.96)),
+            repeating-linear-gradient(135deg, rgba(0, 255, 102, 0.025) 0 1px, transparent 1px 16px) !important;
+    clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+}
+
+body.admin-control .stat-card::before,
+body.admin-control .panel::before,
+body.admin-control .content-card::before,
+body.admin-control .form-container::before,
+body.admin-control .tabla-container::before {
+    left: 0 !important;
+    right: 0 !important;
+    background: linear-gradient(90deg, var(--ref-green), transparent 45%, var(--ref-cyan), transparent) !important;
+}
+
+body.admin-control .stat-card:first-child {
+    min-height: 410px !important;
+}
+
+body.admin-control .stat-card:first-child .stat-number {
+    font-size: clamp(4.8rem, 10vw, 9rem) !important;
+}
+
+body.admin-control .stat-label::before,
+body.admin-control .panel-header h3::before,
+body.admin-control .card-header h3::before,
+body.admin-control .seccion h2::before {
+    content: "> ";
+    color: var(--ref-green);
+}
+
+body.admin-control .stat-number {
+    color: var(--ref-green-hot) !important;
+    text-shadow: 0 0 30px rgba(0, 255, 102, 0.28) !important;
+}
+
+body.admin-control .stat-icon,
+body.admin-control .quick-icon,
+body.admin-control .info-icon,
+body.admin-control .message-status-icon,
+body.admin-control .form-intro-icon,
+body.admin-control .semana-numero {
+    border-radius: 0 !important;
+    color: var(--ref-green) !important;
+    border-color: rgba(0, 255, 102, 0.30) !important;
+    background: rgba(0, 255, 102, 0.10) !important;
+}
+
+body.admin-control .dashboard-grid {
+    grid-template-columns: minmax(0, 1.35fr) minmax(340px, 0.75fr) !important;
+}
+
+body.admin-control .panel-header,
+body.admin-control .card-header {
+    padding-bottom: 14px !important;
+    border-bottom: 1px solid rgba(0, 255, 102, 0.14);
+}
+
+body.admin-control .quick-action,
+body.admin-control .recursos a {
+    border-radius: 0 !important;
+    border-color: rgba(0, 255, 102, 0.18) !important;
+    background:
+            linear-gradient(90deg, rgba(0, 255, 102, 0.09), rgba(0, 229, 255, 0.035)) !important;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+}
+
+body.admin-control .info-bar,
+body.admin-control .semana-info,
+body.admin-control .form-intro,
+body.admin-control .message-status,
+body.admin-control .archivo-actual {
+    border-left: 3px solid var(--ref-cyan) !important;
+    background:
+            linear-gradient(90deg, rgba(0, 229, 255, 0.10), rgba(0, 255, 102, 0.035)) !important;
+}
+
+body.admin-control .weeks-grid,
+body.admin-control .trabajos-container {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+}
+
+body.admin-control .week-card,
+body.admin-control .trabajo-card {
+    min-height: 285px !important;
+}
+
+body.admin-control .week-big-number {
+    top: 42px !important;
+    right: 18px !important;
+    color: rgba(0, 255, 102, 0.14) !important;
+}
+
+body.admin-control .week-number,
+body.admin-control .work-tag,
+body.admin-control .message-count,
+body.admin-control .badge-nuevo {
+    border-radius: 0 !important;
+    color: #001807 !important;
+    background: var(--ref-green) !important;
+}
+
+body.admin-control .trabajo-meta {
+    color: var(--ref-muted) !important;
+}
+
+body.admin-control .trabajo-meta span:first-child,
+body.admin-control .week-code,
+body.admin-control .info-code {
+    color: var(--ref-cyan) !important;
+}
+
+body.admin-control .imagen-wrapper,
+body.admin-control .sin-imagen {
+    border-bottom: 1px solid rgba(0, 255, 102, 0.16);
+}
+
+body.admin-control .imagen-overlay {
+    background:
+            linear-gradient(to top, rgba(0, 7, 4, 0.78), transparent 58%),
+            linear-gradient(135deg, rgba(0, 255, 102, 0.12), transparent 36%) !important;
+}
+
+body.admin-control .table-container,
+body.admin-control .tabla-container {
+    background:
+            linear-gradient(145deg, rgba(0, 15, 8, 0.92), rgba(0, 4, 2, 0.96)) !important;
+}
+
+body.admin-control table {
+    border-spacing: 0 8px !important;
+}
+
+body.admin-control th {
+    color: var(--ref-green) !important;
+    background: rgba(0, 255, 102, 0.055) !important;
+}
+
+body.admin-control tbody tr {
+    background: rgba(0, 19, 10, 0.76) !important;
+}
+
+body.admin-control tbody tr:hover {
+    background: rgba(0, 255, 102, 0.10) !important;
+}
+
+body.admin-control td {
+    border-color: rgba(0, 255, 102, 0.16) !important;
+}
+
+body.admin-control .mensaje-no-leido {
+    background: rgba(0, 255, 102, 0.08) !important;
+    box-shadow: inset 4px 0 0 var(--ref-green), 0 0 30px rgba(0, 255, 102, 0.07) !important;
+}
+
+body.admin-control .form-container {
+    max-width: 1180px;
+}
+
+body.admin-control .seccion {
+    border-radius: 0 !important;
+    border-color: rgba(0, 255, 102, 0.16) !important;
+    background: rgba(0, 0, 0, 0.24) !important;
+}
+
+body.admin-control input,
+body.admin-control textarea,
+body.admin-control select {
+    border-radius: 0 !important;
+    border-color: rgba(0, 255, 102, 0.26) !important;
+    color: #dfffe6 !important;
+    background:
+            linear-gradient(90deg, rgba(0, 255, 102, 0.06), rgba(0, 0, 0, 0.36)) !important;
+    font-family: var(--terminal-font) !important;
+}
+
+body.admin-control input:focus,
+body.admin-control textarea:focus,
+body.admin-control select:focus {
+    border-color: var(--ref-line-hot) !important;
+    box-shadow: 0 0 0 3px rgba(0, 255, 102, 0.10), 0 0 30px rgba(0, 255, 102, 0.14) !important;
+}
+
+body.admin-control .btn,
+body.admin-control .btn-nuevo,
+body.admin-control .btn-action,
+body.admin-control .view-button,
+body.admin-control .btn-guardar,
+body.admin-control .btn-cancelar,
+body.admin-control .btn-trabajos,
+body.admin-control .btn-editar,
+body.admin-control .btn-eliminar,
+body.admin-control .btn-view,
+body.admin-control .btn-delete,
+body.admin-control .btn-send,
+body.admin-control .btn-cancel,
+body.admin-control .btn-volver,
+body.admin-control .btn-primary,
+body.admin-control .btn-secondary {
+    border-radius: 0 !important;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+}
+
+body.admin-control .btn-guardar,
+body.admin-control .btn-nuevo,
+body.admin-control .btn-send,
+body.admin-control .btn-primary {
+    background: var(--ref-green) !important;
+    color: #001807 !important;
+}
+
+body.admin-control .btn-view,
+body.admin-control .btn-trabajos,
+body.admin-control .btn-editar {
+    color: var(--ref-cyan) !important;
+}
+
+body.admin-control .detail-item {
+    border-color: rgba(0, 255, 102, 0.16) !important;
+}
+
+body.admin-control .message-tag {
+    color: var(--ref-green) !important;
+}
+
+body.admin-control .message-content {
+    min-height: 180px !important;
+    border-left-color: var(--ref-green) !important;
+}
+
+body.admin-control .footer,
+body.admin-control .dashboard-footer,
+body.admin-control .admin-footer {
+    color: rgba(133, 169, 145, 0.78) !important;
+}
+
+body.admin-control .footer::before,
+body.admin-control .dashboard-footer::before,
+body.admin-control .admin-footer::before {
+    content: "ANTONIO // AprHd";
+    color: var(--ref-green);
+}
+
+@media (max-width: 1180px) {
+    body.admin-control {
+        --sidebar-width: 96px;
+    }
+
+    body.admin-control .sidebar {
+        width: 78px !important;
+    }
+
+    body.admin-control .admin-card strong::after,
+    body.admin-control .sidebar-version::before,
+    body.admin-control .topbar::after {
+        display: none !important;
+    }
+
+    body.admin-control .stats,
+    body.admin-control .dashboard-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+
+@media (max-width: 780px) {
+    body.admin-control {
+        --sidebar-width: 0px;
+    }
+
+    body.admin-control .main::before,
+    body.admin-control .main-content::before {
+        top: 0;
+        padding-left: 78px;
+        font-size: 0.58rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    body.admin-control .dashboard-intro,
+    body.admin-control .header,
+    body.admin-control .admin-header {
+        grid-template-columns: 1fr !important;
+        min-height: auto !important;
+        clip-path: none;
+    }
+
+    body.admin-control .stats,
+    body.admin-control .dashboard-grid,
+    body.admin-control .weeks-grid,
+    body.admin-control .trabajos-container {
+        grid-template-columns: 1fr !important;
+    }
+
+    body.admin-control .stat-card:first-child {
+        min-height: 220px !important;
+    }
+
+    body.admin-control .sidebar {
+        width: auto !important;
+    }
+}
+
+@media (max-width: 520px) {
+    body.admin-control .dashboard::before,
+    body.admin-control .page::before,
+    body.admin-control .admin-container::before {
+        display: none;
+    }
+
+    body.admin-control .welcome h2,
+    body.admin-control .header h2,
+    body.admin-control .admin-header h1 {
+        font-size: 2.25rem !important;
+    }
+
+    body.admin-control .footer::before,
+    body.admin-control .dashboard-footer::before,
+    body.admin-control .admin-footer::before {
+        display: block;
+        margin-bottom: 8px;
+    }
+}

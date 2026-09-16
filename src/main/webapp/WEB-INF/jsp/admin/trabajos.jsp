@@ -898,7 +898,7 @@
 
 </head>
 
-<body>
+<body class="admin-control">
 
 <div class="page">
 
@@ -930,11 +930,11 @@
                 <div>
 
                     <h1>
-                        Gestión de trabajos
+                        Work Archive
                     </h1>
 
                     <span>
-                        Proyectos académicos · Portafolio
+                        Project nodes · Portafolio
                     </span>
 
                 </div>
@@ -977,7 +977,7 @@
             <div class="header">
 
                 <span class="header-label">
-                    PORTAFOLIO ACADÉMICO
+                    WEEK PROJECTS
                 </span>
 
                 <h2>

@@ -665,7 +665,7 @@
 
 </head>
 
-<body>
+<body class="admin-control">
 
 <div class="page">
 
@@ -698,11 +698,11 @@
                 <div>
 
                     <h1>
-                        Gestión de semanas
+                        Week Module Editor
                     </h1>
 
                     <span>
-                        Configuración académica · Portafolio
+                        Academic node config · Portafolio
                     </span>
 
                 </div>
@@ -745,7 +745,7 @@
             <div class="header">
 
                 <span class="header-label">
-                    GESTIÓN ACADÉMICA
+                    MODULE CONFIG
                 </span>
 
                 <h2

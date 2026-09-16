@@ -900,8 +900,7 @@ body > *:not(#matrixCanvas):not(.matrix-glow),
 .journey-card,
 .project-card,
 .contact-container,
-.contact-item,
-.modal-contacto {
+.contact-item {
     border: 1px solid rgba(84, 255, 111, 0.20);
     background: linear-gradient(145deg, rgba(0, 15, 5, 0.70), rgba(0, 5, 1, 0.82));
     backdrop-filter: blur(12px);
@@ -1307,7 +1306,55 @@ body > *:not(#matrixCanvas):not(.matrix-glow),
 .contact-button {
     width: 100%;
     justify-content: space-between;
-    color: #80ff8b;
+    min-height: 68px;
+    padding: 0 20px;
+    border: 1px solid rgba(84, 255, 111, 0.48);
+    border-radius: 18px;
+    color: #ecffef;
+    background:
+            linear-gradient(135deg, rgba(0, 24, 8, 0.96), rgba(0, 9, 3, 0.92));
+    box-shadow:
+            0 18px 42px rgba(0, 0, 0, 0.36),
+            inset 0 0 26px rgba(57, 255, 82, 0.045),
+            0 0 18px rgba(57, 255, 82, 0.10);
+    font-weight: 900;
+    letter-spacing: 0.01em;
+    transition:
+            border-color 0.22s ease,
+            background 0.22s ease,
+            box-shadow 0.22s ease,
+            transform 0.22s ease,
+            color 0.22s ease;
+}
+
+.contact-button .ui-icon {
+    color: #54ff6f;
+}
+
+.contact-button span {
+    color: #f4fff5;
+}
+
+.contact-button strong {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border: 1px solid rgba(84, 255, 111, 0.32);
+    border-radius: 12px;
+    background: rgba(57, 255, 82, 0.075);
+}
+
+.contact-button:hover {
+    color: #ffffff;
+    border-color: rgba(126, 255, 143, 0.76);
+    background:
+            linear-gradient(135deg, rgba(0, 39, 12, 0.98), rgba(0, 14, 5, 0.94));
+    box-shadow:
+            0 22px 52px rgba(0, 0, 0, 0.44),
+            inset 0 0 30px rgba(57, 255, 82, 0.07),
+            0 0 28px rgba(57, 255, 82, 0.18);
+    transform: translateY(-3px);
 }
 
 /* =====================================================
@@ -1330,79 +1377,237 @@ body > *:not(#matrixCanvas):not(.matrix-glow),
 }
 
 .modal-contacto {
-    position: relative;
-    width: min(620px, 100%);
-    max-height: calc(100vh - 44px);
-    overflow: auto;
-    padding: 28px;
-    border-radius: 28px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: min(560px, calc(100vw - 32px));
+    max-height: calc(100dvh - 20px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    transform: translate(-50%, -50%);
+    padding: clamp(14px, 1.8vw, 18px);
+    border: 1px solid rgba(84, 255, 111, 0.36);
+    border-radius: 18px;
+    background:
+            linear-gradient(145deg, rgba(0, 17, 6, 0.985), rgba(0, 4, 2, 0.99));
+    box-shadow:
+            0 28px 76px rgba(0, 0, 0, 0.62),
+            inset 0 0 28px rgba(57, 255, 82, 0.038),
+            0 0 22px rgba(57, 255, 82, 0.08);
+    box-sizing: border-box;
+    overscroll-behavior: contain;
 }
 
 .modal-close {
     position: absolute;
-    top: 16px;
-    right: 16px;
-    width: 40px;
-    height: 40px;
-    border: 1px solid rgba(84, 255, 111, 0.26);
-    border-radius: 14px;
-    color: #eaffec;
-    background: rgba(0, 10, 3, 0.72);
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(84, 255, 111, 0.36);
+    border-radius: 12px;
+    color: #dfffe4;
+    background: rgba(0, 13, 4, 0.88);
     cursor: pointer;
+    font-size: 1.3rem;
+    line-height: 1;
+    transition:
+            border-color 0.2s ease,
+            background 0.2s ease,
+            box-shadow 0.2s ease,
+            transform 0.2s ease;
+}
+
+.modal-close:hover {
+    border-color: rgba(126, 255, 143, 0.72);
+    background: rgba(57, 255, 82, 0.12);
+    box-shadow: 0 0 18px rgba(57, 255, 82, 0.14);
+    transform: translateY(-2px);
 }
 
 .modal-header {
-    margin-bottom: 22px;
+    display: grid;
+    gap: 3px;
+    margin-bottom: 8px;
+    padding-right: 42px;
 }
 
 .modal-header h2 {
-    margin: 10px 0;
-    font-size: 2rem;
+    margin: 2px 0 0;
+    color: #f4fff5;
+    font-size: clamp(1.32rem, 2.4vw, 1.68rem);
+    line-height: 1.05;
+    letter-spacing: 0;
+    text-shadow: none;
 }
 
 .modal-header p {
-    color: var(--muted);
-    line-height: 1.6;
+    margin: 0;
+    color: #b8c9bb;
+    font-size: 0.86rem;
+    line-height: 1.35;
+    text-shadow: none;
 }
 
 .form-group {
     display: grid;
-    gap: 8px;
-    margin-bottom: 16px;
+    gap: 4px;
+    margin-bottom: 7px;
 }
 
 .form-group label {
-    color: #dfffff;
-    font-weight: 700;
+    color: #9dffab;
+    font: 800 0.66rem Consolas, "Courier New", monospace;
+    letter-spacing: 0.08em;
+    line-height: 1.2;
+    text-transform: uppercase;
+    text-shadow: none;
 }
 
 .form-group input,
 .form-group textarea {
     width: 100%;
-    border: 1px solid rgba(84, 255, 111, 0.22);
-    border-radius: 16px;
-    padding: 13px 14px;
-    color: var(--text);
-    background: rgba(0, 8, 2, 0.78);
+    border: 1px solid rgba(84, 255, 111, 0.30);
+    border-radius: 12px;
+    min-height: 42px;
+    padding: 9px 11px;
+    color: #ffffff;
+    background: rgba(0, 8, 3, 0.90);
     outline: none;
+    box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.22);
+    transition:
+            border-color 0.22s ease,
+            background 0.22s ease,
+            box-shadow 0.22s ease;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #748579;
+    opacity: 1;
 }
 
 .form-group textarea {
-    min-height: 130px;
+    min-height: 92px;
+    max-height: 118px;
     resize: vertical;
+    line-height: 1.55;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
-    border-color: rgba(126, 255, 143, 0.56);
-    box-shadow: 0 0 0 4px rgba(57, 255, 82, 0.08);
+    border-color: rgba(126, 255, 143, 0.72);
+    background: rgba(0, 13, 4, 0.96);
+    box-shadow:
+            0 0 0 3px rgba(57, 255, 82, 0.08),
+            0 0 18px rgba(57, 255, 82, 0.10),
+            inset 0 0 18px rgba(0, 0, 0, 0.25);
 }
 
 .modal-buttons {
     display: flex;
     justify-content: flex-end;
-    gap: 12px;
-    margin-top: 20px;
+    gap: 8px;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(84, 255, 111, 0.14);
+}
+
+.btn-send,
+.btn-cancel {
+    min-height: 42px;
+    padding: 0 13px;
+    border-radius: 12px;
+    transition:
+            border-color 0.22s ease,
+            background 0.22s ease,
+            box-shadow 0.22s ease,
+            transform 0.22s ease,
+            color 0.22s ease;
+}
+
+.btn-send {
+    border-color: rgba(126, 255, 143, 0.62);
+    color: #001904;
+    background: linear-gradient(135deg, #a8ffb3, #39ff52);
+    box-shadow: 0 0 22px rgba(57, 255, 82, 0.18);
+}
+
+.btn-send:hover {
+    border-color: rgba(183, 255, 188, 0.86);
+    box-shadow:
+            0 14px 32px rgba(0, 0, 0, 0.34),
+            0 0 28px rgba(57, 255, 82, 0.24);
+    transform: translateY(-2px);
+}
+
+.btn-cancel {
+    border-color: rgba(84, 255, 111, 0.30);
+    color: #d9eadc;
+    background: rgba(0, 11, 3, 0.84);
+}
+
+.btn-cancel:hover {
+    border-color: rgba(126, 255, 143, 0.58);
+    color: #ffffff;
+    background: rgba(57, 255, 82, 0.10);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 640px) {
+    .modal-contacto {
+        width: calc(100vw - 14px);
+        max-height: calc(100dvh - 14px);
+        padding: 12px;
+        border-radius: 14px;
+    }
+
+    .modal-close {
+        top: 12px;
+        right: 12px;
+        width: 36px;
+        height: 36px;
+    }
+
+    .modal-header {
+        margin-bottom: 8px;
+        padding-right: 42px;
+    }
+
+    .modal-header h2 {
+        font-size: 1.24rem;
+    }
+
+    .modal-header p {
+        font-size: 0.8rem;
+    }
+
+    .form-group {
+        margin-bottom: 6px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        min-height: 40px;
+        padding: 8px 10px;
+    }
+
+    .form-group textarea {
+        min-height: 76px;
+        max-height: 100px;
+    }
+
+    .modal-buttons {
+        display: grid;
+        gap: 7px;
+        margin-top: 7px;
+        padding-top: 7px;
+    }
+
+    .btn-send,
+    .btn-cancel {
+        width: 100%;
+    }
 }
 
 .notificacion {
